@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>br.com.hoyler.apps.imprimeponto</groupId>
+  <artifactId>ImprimePonto</artifactId>
+  <version>0.0.0.1-SNAPSHOT</version>
+  <name>Projeto Imprime Ponto</name>
+  <url>http://www.hoyler.com.br</url>
+  <description>Projeto Imprime Folha de Ponto para Funcionarios</description>
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.7.0</version>
+			<configuration>
+				<release>8</release>
+			</configuration>
+		</plugin>
+	</plugins>
+  </build>
+	<dependencies>
+		<!-- Driver SQLite -->
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.23.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>6.6.0</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>com.ibm.icu</groupId>
+		    		<artifactId>icu4j</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    		<artifactId>jackson-databind</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    		<artifactId>jackson-annotations</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    		<artifactId>jackson-core</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>stax</groupId>
+		    		<artifactId>stax-api</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>stax</groupId>
+		    		<artifactId>stax</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>javax.xml.stream</groupId>
+		    		<artifactId>stax-api</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.codehaus.castor</groupId>
+		    		<artifactId>castor-xml</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.jfree</groupId>
+		    		<artifactId>jfreechart</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.jfree</groupId>
+		    		<artifactId>jcommon</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.bouncycastle</groupId>
+		    		<artifactId>bcprov-jdk15on</artifactId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+	</dependencies> 
+</project>

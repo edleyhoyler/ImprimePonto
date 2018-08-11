@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vBox" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.hoyler.apps.imprimeponto.CadastroFuncaoController">
+	<children>
+		<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+			<children>
+            <ImageView fx:id="ImageViewLogo" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <Hyperlink fx:id="HyperLinkHOYLERTecnologiaID" ellipsisString="" layoutX="573.0" layoutY="14.0" onMouseClicked="#HyperLinkHOYLERTecnologiaID_OnMouseClicked" pickOnBounds="false" text="HOYLER Tecnologia" underline="true" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+            <Label fx:id="LabelCodigoID" layoutX="14.0" layoutY="73.0" text="Codigo.......:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="75.0" />
+            <TextField fx:id="TextFieldCodigoID" layoutX="14.0" layoutY="90.0" prefHeight="30.0" prefWidth="672.0" promptText="Codigo da Função" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0" />
+            <Label fx:id="LabelNomeID" layoutX="17.0" layoutY="115.0" text="Nome........:" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="120.0" />
+            <TextField fx:id="TextFieldNomeID" layoutX="14.0" layoutY="135.0" prefHeight="30.0" prefWidth="672.0" promptText="Nome  da Função" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="135.0" />
+            <Button fx:id="ButtonNovoID" layoutX="14.0" layoutY="174.0" mnemonicParsing="false" onAction="#ButtonNovoID_OnAction" prefHeight="30.0" prefWidth="80.0" text="Novo" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="174.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="ButtonAlterarID" layoutX="104.0" layoutY="174.0" mnemonicParsing="false" onAction="#ButtonAlterarID_OnAction" prefHeight="30.0" prefWidth="80.0" text="Alterar" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="174.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="ButtonDeletarID" layoutX="194.0" layoutY="174.0" mnemonicParsing="false" onAction="#ButtonDeletar_OnAction" prefHeight="30.0" prefWidth="80.0" text="Deletar" AnchorPane.leftAnchor="194.0" AnchorPane.topAnchor="174.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+			<Button fx:id="ButtonListarID" layoutX="284.0" layoutY="174.0" mnemonicParsing="false" onAction="#ButtonListar_OnAction" prefHeight="30.0" prefWidth="80.0" text="Listar" AnchorPane.leftAnchor="284.0" AnchorPane.topAnchor="174.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <TextField fx:id="TextFieldListarID" layoutX="365.0" layoutY="174.0" prefHeight="30.0" prefWidth="321.0" promptText="BUSCAR" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="174.0" />
+            <TableView fx:id="TableViewColaboradorID" layoutX="250.0" layoutY="214.0" prefHeight="536.0" prefWidth="672.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="214.0">
+              <columns>
+			    <TableColumn fx:id="TableColumnCodigoID" editable="false" minWidth="100.0" prefWidth="150.0" sortable="false" text="Codigo" />
+                <TableColumn fx:id="TableColumnFuncaoID" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="500.0" sortable="false" text="Função" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+			 <Button fx:id="ButtonPDFID" layoutX="14.0" layoutY="756.0" mnemonicParsing="false" onAction="#ButtonPDFID_OnAction" prefHeight="30.0" prefWidth="80.0" text="PDF" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0">
+			 		<cursor>
+				<Cursor fx:constant="HAND" />
+			</cursor></Button>
+            <Button fx:id="ButtonImprimirID" layoutX="104.0" layoutY="756.0" mnemonicParsing="false" onAction="#ButtonImprimirID_OnAction" prefHeight="30.0" prefWidth="90.0" text="Imprimir" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="104.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>  
+			<Button fx:id="ButtonVisualizarID" layoutX="204.0" layoutY="756.0" mnemonicParsing="false" onAction="#ButtonVisualizarID_OnAction" prefHeight="30.0" prefWidth="100.0" text="Visualizar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="204.0">
+					<cursor>
+				<Cursor fx:constant="HAND" />
+			</cursor></Button>
+			<Button fx:id="ButtonSairID" layoutX="612.0" layoutY="731.0" mnemonicParsing="false" onAction="#ButtonSairID_OnAction" prefHeight="30.0" prefWidth="80.0" text="Sair" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
+			<cursor>
+				<Cursor fx:constant="HAND" />
+			</cursor></Button>
+            <ProgressBar fx:id="ProgressBarID" layoutX="313.0" layoutY="656.0" prefHeight="30.0" prefWidth="80.0" progress="0.0" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="313.0" AnchorPane.rightAnchor="107.0" />  
+			</children>
+		</AnchorPane>
+	</children>
+</VBox>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.hoyler.apps.imprimeponto.ImprimePontoController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Ponto">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Imprimir" visible="false" />
+                  <Menu mnemonicParsing="false" text="Cadastros">
+                    <items>
+                        <MenuItem fx:id="menuItemEmpresaID" mnemonicParsing="false" onAction="#menuItemEmpresaID_OnAction" text="Empresa" />
+                        <MenuItem fx:id="menuItemFuncaoID" mnemonicParsing="false" onAction="#menuItemFuncaoID_OnAction" text="Função" />
+                        <MenuItem fx:id="menuItemPessoaID" mnemonicParsing="false" onAction="#menuItemPessoaID_OnAction" text="Pessoa" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="menuItemSairID" mnemonicParsing="false" onAction="#menuItemSairID_OnAction" text="Sair" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ajuda">
+            <items>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="menuItemSuporteID" mnemonicParsing="false" onAction="#menuItemSuporteID_OnAction" text="Suporte" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane VBox.vgrow="ALWAYS">
+         <children>
+            <ImageView fx:id="ImageViewBackgroundID" fitHeight="425.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="ImageViewPessoaID" fitHeight="130.0" fitWidth="130.0" layoutX="14.0" layoutY="265.0" onMousePressed="#ImageViewPessoaID_OnMousePressed" onMouseReleased="#ImageViewPessoaID_OnMouseReleased" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="14.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <ImageView fx:id="ImageViewFuncaoID" fitHeight="130.0" fitWidth="130.0" layoutX="144.0" layoutY="265.0" onMousePressed="#ImageViewFuncaoID_OnMousePressed" onMouseReleased="#ImageViewFuncaoID_OnMouseReleased" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="144.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <ImageView fx:id="ImageViewEmpresaID" fitHeight="130.0" fitWidth="130.0" layoutX="274.0" layoutY="265.0" onMousePressed="#ImageViewEmpresaID_OnMousePressed" onMouseReleased="#ImageViewEmpresaID_OnMouseReleased" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="274.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

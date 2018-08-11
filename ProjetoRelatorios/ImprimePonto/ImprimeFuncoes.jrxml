@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeEmpresas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05b22867-4d03-493a-8c3e-5f2434084e65">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ImprimePonto"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT [F].[CODIGO], [F].[NOME] FROM [Funcoes] [F]]]>
+	</queryString>
+	<field name="CODIGO" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="CODIGO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Funcoes"/>
+	</field>
+	<field name="NOME" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.label" value="NOME"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Funcoes"/>
+	</field>
+	<group name="CODIGO">
+		<groupExpression><![CDATA[$F{CODIGO}]]></groupExpression>
+	</group>
+	<group name="NOME">
+		<groupExpression><![CDATA[$F{NOME}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="122" y="0" width="310" height="50" uuid="765f00ee-f498-4064-b6df-6b4a25339de9"/>
+				<textElement textAlignment="Center">
+					<font size="33"/>
+				</textElement>
+				<text><![CDATA[Relatório Funções]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="15" uuid="765d387c-f2ec-4dc0-8758-5fc690b1b606">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="96c4538c-b7cf-4e5c-8ecf-0100fe814ec5"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Calibri" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="190" height="15" uuid="c17a315e-62c1-4f4e-8357-24281fda5c0f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a68a043-c228-46ad-b61e-1de52889edd4"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Calibri" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FUNÇÃO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="13" uuid="9478aa25-e9fb-48e4-9026-1c5cddb7c8cf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="96c4538c-b7cf-4e5c-8ecf-0100fe814ec5"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CODIGO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="190" height="13" uuid="85e50cd8-7bb4-4341-ba14-4e8786faa08b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a68a043-c228-46ad-b61e-1de52889edd4"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="530" y="0" width="23" height="13" uuid="cf4d3e11-545e-44f3-b7e5-3d0b7f11a692"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="407" y="0" width="123" height="13" uuid="090c1a95-b776-4767-964b-e85c3503dcde">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c3d1ebe0-c884-4487-9a99-b7356ec95caf"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Calibri" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGINA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="150" height="13" uuid="7edbba7e-b7b3-431b-b8c2-51154f0d2830"/>
+				<textElement textAlignment="Left">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="55" splitType="Stretch"/>
+	</summary>
+</jasperReport>
