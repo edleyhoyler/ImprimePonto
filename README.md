@@ -32,10 +32,6 @@ TST - RECURSO DE REVISTA RR 1090004220065080012 109000-42.2006.5.08.0012 (TST)
 Data de publicação: 28/09/2007
 Ementa: RECURSO DE REVISTA - PRELIMINAR DE NULIDADE DO ACÓRDÃO REGIONAL POR NEGATIVA DE PRESTAÇÃO JURISDICIONAL Encontra-se preclusa a insurgência pela não-oposição de Embargos de Declaração ao acórdão regional. HORAS EXTRAS - EMPRESA COM MENOS DE 10 EMPREGADOS - ART. 74 , § 2º , DA CLT E SÚMULA Nº 338, ITEM I, DO TSTA Recorrente não está obrigada a manter registro dos horários de chegada e saída de seus empregados, na forma do artigo 74 , § 2º , da CLT , pois não possui mais de dez empregados.É indevida, portanto, a inversão do ônus da prova prevista no item I da Súmula nº 338 desta Corte.Recurso de Revista parcialmente conhecido e provido.
 
-TRT-14 - RECURSO ORDINARIO TRABALHISTA RO 125 RO 0000125 (TRT-14) Jurisprudência 
-Data de publicação: 08/07/2011
-Ementa: HORAS EXTRAS. ÔNUS DA PROVA DO EMPREGADO. EMPRESA COM MENOS DE 10EMPREGADOS. ART. 74 , õ2º, DA CLT . SÚMULA N. 338, I, DO TST. É do empregado o ônus decomprovar suas alegações alusivas ao labor em sobrejornada (art. 818 da CLT , c/c os incs. I do art. 333 do CPC ). Na hipótese, não incide a inversão do ônus da prova, porque nos termos do õ 2º do art. 74 , da CLT , a empresa que detém em seus quadros até 10 trabalhadores está desobrigada do registro de ponto. Essa circunstância afasta a aplicabilidade do item I, da Súmulan. 338 , do TST. DANO MORAL. CARACTERIZAÇAO. O dano moral reside na dor pessoal, no sofrimento íntimo, no abalo psíquico, dentre outras a􀂢ições internas. Demonstrado que obreiro sofreu dano na esfera extrapatrimonial, decorrente da exclusão injusta do plano de saúde, quando encontrava-se grávida e no 􀂡nal do período gestacional, subsiste o dever de pagamento de indenização pelo ofensor. "QUANTUM DEBEATUR". DESPROPORCIONALIDADE. MINORAÇAO. Prestando a reclamada assistência à empregada gestante, cobrindo as despesas que caberiam ao plano de saúde, em face do curto período de supressão do plano, é plenamente viável a redução da condenação pelos danos morais.
-
 # Software utilizado para desenvolvimento
 -------
 *   Notepad++ 7.5.5

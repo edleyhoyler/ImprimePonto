@@ -2,8 +2,10 @@ package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import br.com.hoyler.apps.tools.CheckFile;
+import br.com.hoyler.apps.tools.DiaSemana;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -466,13 +468,25 @@ public class PessoasFabricaDAO {
 		querrySQL += ("[F].[NOME] [FUNCAO], ");
 		querrySQL += ("[E].[NOME] [EMPRESA], ");
 		querrySQL += ("[E].[CNPJ], ");
-		querrySQL += ("[E].[ENDERECO] ");
+		querrySQL += ("[E].[ENDERECO], ");
+		
+		int totalDiasMES = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+		for (int i = 1; i <= totalDiasMES; i++) {
+			String dia = Integer.toString(i);
+			String Semana = DiaSemana.ChecarDiaSemana(dia);
+			querrySQL += String.format("(select ' %s %s') AS DIA_%s ", dia, Semana, dia);
+			if (i < totalDiasMES)
+			{
+				querrySQL += ", ";
+			}
+		}
+		
 		querrySQL += ("FROM [Pessoas] [P] ");
 		querrySQL += ("INNER JOIN [Funcoes] [F] ON ");
 		querrySQL += ("[P].[FUNCAO_CODIGO] = [F].[CODIGO] ");
 		querrySQL += ("INNER JOIN  [Empresas] [E] ON ");
 		querrySQL += ("[P].[EMPRESA_CODIGO] = [E].[CODIGO] ");
-
+		System.out.println(DiaSemana.ChecarDiaSemana("222"));
 		if (nome == null) {
 
 			return database.ExecutarSQL(querrySQL);
