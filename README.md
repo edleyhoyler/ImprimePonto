@@ -5,7 +5,15 @@
 -------
 # ImprimePonto
 Projeto Imprime Folha de Ponto para Funcionários
-[![ImprimePonto.png](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePonto.png)](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePonto.png)
+
+[ImprimePonto.png](https://i.imgur.com/0T4cnUH.png)
+
+# Downloads
+| Aplicativo          | Tipo   | Versao  | Link                                                                                                            |
+| ------------------- | ------ | ------- | ----------------------------------------------------------------------------------------------------------------|
+| ImprimePontoRelease | exe    | 1.0.0.5 | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.5/ImprimePontoRelease1.0.0.5.exe)|
+| ImprimePontoRelease | zip    | 1.0.0.5 | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.5/ImprimePontoRelease1.0.0.5.zip)|
+| ImprimePontoRelease | rar    | 1.0.0.5 | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.5/ImprimePontoRelease1.0.0.5.rar)|
 
 # Características
 *   Relatório com pre-Visualizações
@@ -13,7 +21,9 @@ Projeto Imprime Folha de Ponto para Funcionários
 *   Cadastros  de Funções, Empresas e Funcionários
 *   Relatórios de Funções, Empresas e Funcionários
 *   Relatório Exportando para PDF, HTML, XML, XLS, XLSX
-[![ImprimePontoPessoa.png](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePontoPessoa.png)](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePontoPessoa.png)
+
+[ImprimePontoPessoa](https://i.imgur.com/s1vt22R.png)
+
 
 # Requerimentos (Java Libs)
 *   ecj-4.4.2.jar.................: Eclipse JDT Core Batch Compiler
