@@ -1,9 +1,9 @@
 package br.com.hoyler.apps.imagens;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 public class ImagensGetSet {
 

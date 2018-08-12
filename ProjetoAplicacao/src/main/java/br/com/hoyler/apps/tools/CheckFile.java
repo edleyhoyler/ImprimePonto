@@ -16,7 +16,8 @@ public class CheckFile {
 
 		} catch (Exception ex) {
 
-			System.out.println(String.format("public class CheckFile FileExists [%s] [%s]\n%s", filePath, booleanReturn, ex.getMessage()));
+			System.out.println(String.format("public class CheckFile FileExists [%s] [%s]\n%s", filePath, booleanReturn,
+					ex.getMessage()));
 		}
 
 		if (booleanReturn) {
@@ -26,8 +27,6 @@ public class CheckFile {
 
 			System.out.printf("public class CheckFile FileExists [%s] [%s]\n", filePath, booleanReturn.toString());
 		}
-
 		return booleanReturn;
 	}
-
 }

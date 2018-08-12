@@ -2,7 +2,6 @@ package br.com.hoyler.apps.reports;
 
 import java.io.File;
 import java.util.Calendar;
-
 import br.com.hoyler.apps.tools.CheckFile;
 import br.com.hoyler.apps.tools.ProgramDirectoryUtilities;
 
@@ -73,12 +72,12 @@ public class Relatorios {
 
 		return (getRelatorioFile(getImprimePontoMeses()));
 	}
-	
+
 	private String getImprimeEmpresas() {
 
 		return (getRelatorio("ImprimeEmpresas.jasper"));
 	}
-	
+
 	public File getRelatorioImprimeEmpresas() {
 
 		return (getRelatorioFile(getImprimeEmpresas()));

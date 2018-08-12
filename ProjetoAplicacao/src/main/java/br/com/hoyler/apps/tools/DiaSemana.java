@@ -1,18 +1,20 @@
 package br.com.hoyler.apps.tools;
 
+import java.util.Calendar;
+import java.time.LocalDate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
 
 public class DiaSemana {
 
 	public static String ChecarDiaSemana(String dia) {
 
 		Calendar data = Calendar.getInstance();
+		
 		SimpleDateFormat simpleFormat_DiaMesAno = new SimpleDateFormat("dd/MM/yyyy");
 
 		String Mes = Integer.toString(LocalDate.now().getMonthValue());
+		
 		String Ano = Integer.toString(LocalDate.now().getYear());
 
 		String DiaMesAno = (String.format("%s/%s/%s", dia, Mes, Ano));
@@ -20,7 +22,7 @@ public class DiaSemana {
 		try {
 			data.setTime(simpleFormat_DiaMesAno.parse(DiaMesAno));
 		} catch (ParseException e) {
-			System.out.println(String.format("public class DiaSemana ChecarDiaSemana DATA: %s [ERRO]", DiaMesAno));
+			System.out.println(String.format("public class DiaSemana ChecarDiaSemana ERRO ParseException DATA: %s", DiaMesAno));
 		}
 
 		String diaSemana = checaFDS(data);
@@ -65,38 +67,6 @@ public class DiaSemana {
 			diaSemana = ("");
 			break;
 		}
-
-		/*
-		if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-
-			diaSemana = ("DOM");
-
-		} else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-
-			diaSemana = ("SEG");
-
-		} else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
-
-			diaSemana = ("TER");
-
-		} else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
-
-			diaSemana = ("QUA");
-
-		} else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-
-			diaSemana = ("QUI");
-
-		} else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
-
-			diaSemana = ("SEX");
-
-		} else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-
-			diaSemana = ("SAB");
-
-		}
-		 */
 		return diaSemana;
 	}
 }

@@ -1,7 +1,7 @@
 package br.com.hoyler.apps.tools;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.annotation.Annotation;
 
 public enum JanelasFXMLEnum {
 
@@ -20,9 +20,7 @@ public enum JanelasFXMLEnum {
 	
 	@IDescricaoEnum(descricao = ("Imprime Ponto - Criado por Edy"))
 	RELATORIO_EMPRESA("RelatorioPessoasPorEmpresa.fxml");
-	
-	
-	
+
 	private String VALOR;
 
 	JanelasFXMLEnum(String valor) {

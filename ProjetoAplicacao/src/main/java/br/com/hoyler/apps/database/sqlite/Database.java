@@ -1,13 +1,11 @@
 package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.DriverManager;
 import org.sqlite.SQLiteConfig;
-
+import java.sql.PreparedStatement;
 import br.com.hoyler.apps.tools.CheckFile;
 import br.com.hoyler.apps.tools.ProgramDirectoryUtilities;
 
@@ -31,8 +29,6 @@ public class Database {
 	public final String CAMPO_FUNCAO_CODIGO = "FUNCAO_CODIGO";
 	public final String CAMPO_EMPRESA_CODIGO = "EMPRESA_CODIGO";
 
-	// public final String PATCH_FILE = String.format("%s\\%s",
-	// "ImprimeFolha\\Database",BANCO_DE_DADOS);
 	public final String PATCH_FILE = String.format("%s\\ImprimePonto\\Database\\%s",
 			ProgramDirectoryUtilities.getProgramDirectory(), BANCO_DE_DADOS);
 
@@ -79,15 +75,10 @@ public class Database {
 				System.out.println(
 						String.format("public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DRIVER: [%s] [CATCH ERRO]", DRIVER));
 
-				// e.printStackTrace();
-
 			} catch (SQLException e) {
 
 				System.out.println(
 						String.format("public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DB_URL: [%s] [CATCH ERRO]", DB_URL));
-
-				// e.printStackTrace();
-
 			}
 
 		} else

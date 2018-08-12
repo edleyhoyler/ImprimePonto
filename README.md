@@ -5,26 +5,27 @@
 -------
 # ImprimePonto
 Projeto Imprime Folha de Ponto para Funcionários
-[![udemy-dl-0-5.png](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePonto.png)](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePonto.png)
+[![ImprimePonto.png](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePonto.png)](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePonto.png)
 
 # Características
-- Cadastros  de Funções, Empresas e Funcionários
-- Relatórios de Funções, Empresas e Funcionários
-- Relatório Exportando para PDF, HTML, XML, XLS, XLSX
-- Relatório com Zoom in / Zoom Out
-- Relatório com pre-Visualizações
+*   Relatório com pre-Visualizações
+*   Relatório com Zoom in / Zoom Out
+*   Cadastros  de Funções, Empresas e Funcionários
+*   Relatórios de Funções, Empresas e Funcionários
+*   Relatório Exportando para PDF, HTML, XML, XLS, XLSX
+[![ImprimePontoPessoa.png](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePontoPessoa.png)](https://github.com/edleyhoyler/ImprimePonto/blob/master/ImprimePontoPessoa.png)
 
 # Requerimentos (Java Libs)
+*   ecj-4.4.2.jar.................: Eclipse JDT Core Batch Compiler
+*   itext-2.1.7.js6.jar...........: itext
+*   sqlite-jdbc-3.23.1.jar........: SQLite JDBC library
+*   jasperreports-6.6.0.jar.......: JasperReports Library
+*   commons-digester-2.1.jar......: Commons Digester Library
+*   commons-logging-1.1.1.jar.....: Commons Logging Library
+*   commons-beanutils-1.9.3.jar...: Commons BeanUtils Library
+*   commons-collections-3.2.2.jar.: Commons Collections Library
 
-- ecj-4.4.2.jar
-- itext-2.1.7.js6.jar
-- jasperreports-6.6.0.jar
-- commons-digester-2.1.jar
-- commons-logging-1.1.1.jar
-- commons-beanutils-1.9.3.jar
-- commons-collections-3.2.2.jar
-
-# Qual é o aplicativo ImprimePonto
+# Oque é o aplicativo ImprimePonto
 -------
 ImprimePonto é um projeto para resolver o problemas de pequenas empresas com até no máximo 10 funcionarios.
 
@@ -38,7 +39,6 @@ Ementa: RECURSO DE REVISTA - PRELIMINAR DE NULIDADE DO ACÓRDÃO REGIONAL POR NE
 *   SQLiteStudio 3.1.1
 *   Jaspersoft Studio 6.6.0
 *   Eclipse Oxygen.3a Release 4.7.3a
-
 
 # Licença
 -------

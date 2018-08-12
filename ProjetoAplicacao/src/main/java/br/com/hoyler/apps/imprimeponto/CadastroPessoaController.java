@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
-
 import org.jvfx.viewer.JasperViewerFX;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -159,10 +157,10 @@ public class CadastroPessoaController {
 
 	@FXML
 	private Button ButtonSairID;
-    
-    @FXML
-    private ProgressBar ProgressBarID;
-    
+
+	@FXML
+	private ProgressBar ProgressBarID;
+
 	@FXML
 	void ButtonAlterarID_OnAction(ActionEvent event) {
 		String BOTAO = (ButtonAlterarID.getText());
@@ -393,12 +391,6 @@ public class CadastroPessoaController {
 
 				cadastroPessoa.setFocusTextField(TextFieldNomeID);
 
-				// cadastroPessoa.setOpacityTextFieldEscrita(TextFieldNomeID);
-
-				// cadastroPessoa.setOpacityTextFieldLeitura(TextFieldListarID);
-
-				// TextFieldNomeID.setEditable(false);
-
 				ButtonNovoID.setDisable(true);
 				ButtonListarID.setDisable(true);
 				TextFieldListarID.setDisable(true);
@@ -445,8 +437,6 @@ public class CadastroPessoaController {
 
 	@FXML
 	void ButtonNovoID_OnAction(ActionEvent event) {
-		// System.out.println(new
-		// CadastroPessoa().getDatePickerValue(DatePickerAdmissaoID));
 
 		String BOTAO = (ButtonNovoID.getText());
 
@@ -499,13 +489,13 @@ public class CadastroPessoaController {
 					jasperReport = (JasperReport) JRLoader
 							.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimePontoMeses());
 					ProgressBarID.setProgress(25);
-					
+
 					jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 					ProgressBarID.setProgress(75);
-					
+
 					JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
 					ProgressBarID.setProgress(85);
-					
+
 					Runtime.getRuntime().exec("cmd.exe /c start " + file.getAbsoluteFile().getParent());
 					ProgressBarID.setProgress(99);
 				} catch (JRException e) {
@@ -521,7 +511,7 @@ public class CadastroPessoaController {
 									+ e.getMessage() + "\n\n");
 
 				}
-			
+
 				ProgressBarID.setVisible(false);
 			}
 		} else {
@@ -538,13 +528,13 @@ public class CadastroPessoaController {
 					jasperReport = (JasperReport) JRLoader
 							.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimePontoMeses());
 					ProgressBarID.setProgress(25);
-					
+
 					jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 					ProgressBarID.setProgress(75);
-					
+
 					JasperExportManager.exportReportToPdfFile(jasperPrint, file.getPath());
 					ProgressBarID.setProgress(85);
-					
+
 					Runtime.getRuntime().exec("cmd.exe /c start " + file.getAbsoluteFile().getParent());
 					ProgressBarID.setProgress(99);
 
@@ -565,7 +555,6 @@ public class CadastroPessoaController {
 			}
 		}
 	}
-
 
 	@FXML
 	void ButtonImprimirID_OnAction(ActionEvent event) {
@@ -588,11 +577,10 @@ public class CadastroPessoaController {
 					jasperReport = (JasperReport) JRLoader
 							.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimePontoMeses());
 					ProgressBarID.setProgress(25);
-					
-					
+
 					jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 					ProgressBarID.setProgress(50);
-					
+
 					jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
 					ProgressBarID.setProgress(85);
 					try {
@@ -625,18 +613,18 @@ public class CadastroPessoaController {
 					jasperReport = (JasperReport) JRLoader
 							.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimePontoMeses());
 					ProgressBarID.setProgress(25);
-					
+
 					jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 					ProgressBarID.setProgress(50);
-					
+
 					jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
 					ProgressBarID.setProgress(85);
-					
+
 					try {
 
 						JasperPrintManager.printReport(jasperPrint, false);
 						ProgressBarID.setProgress(99);
-						
+
 					} catch (Exception e) {
 
 						System.out.println(
@@ -651,7 +639,7 @@ public class CadastroPessoaController {
 							"public class CadastroPessoaController ButtonImprimirID_OnAction Impressao [ERRO] 1\n\n"
 									+ e.getMessage() + "\n\n");
 				}
-		
+
 			}
 		}
 		ProgressBarID.setVisible(false);
@@ -671,13 +659,14 @@ public class CadastroPessoaController {
 
 				jrResultSetDataSource = new JRResultSetDataSource(pessoasFabricaDAO.ListarPessoas(null));
 
-				jasperReport = (JasperReport) JRLoader.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimePontoMeses());
+				jasperReport = (JasperReport) JRLoader
+						.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimePontoMeses());
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 
-			 
-				 new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Pessoa", jasperPrint);
-				 
+				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Pessoa",
+						jasperPrint);
+
 				System.out.println("Tempo Total Relatorio  (NOME null): "
 						+ TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - tempoInicio)));
 
@@ -701,9 +690,9 @@ public class CadastroPessoaController {
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 
-				 
-				 new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Pessoa", jasperPrint);
-				 
+				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Pessoa",
+						jasperPrint);
+
 				System.out.println("Tempo Total Relatorio: "
 						+ TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - tempoInicio)));
 
@@ -776,7 +765,6 @@ public class CadastroPessoaController {
 		assert ButtonSairID != null : "fx:id=\"ButtonSairID\" was not injected: check your FXML file 'CadastroPessoa.fxml'.";
 		assert ProgressBarID != null : "fx:id=\"ProgressBarID\" was not injected: check your FXML file 'CadastroPessoa.fxml'.";
 
-		
 		imagensGetSet.setImageImageView(ImageViewLogo);
 		imagensGetSet.setImageButtons(ButtonPDFID);
 		imagensGetSet.setImageButtons(ButtonImprimirID);

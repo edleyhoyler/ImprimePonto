@@ -16,13 +16,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.jvfx.viewer.JasperViewerFX;
-
 import br.com.hoyler.apps.database.sqlite.Funcoes;
 import br.com.hoyler.apps.database.sqlite.FuncoesFabricaDAO;
 import br.com.hoyler.apps.imagens.ImagensGetSet;

@@ -1,19 +1,13 @@
 package br.com.hoyler.apps.imprimeponto;
-
-
  
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import br.com.hoyler.apps.database.sqlite.Pessoas;
 import br.com.hoyler.apps.database.sqlite.PessoasFabricaDAO;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
- 
-
-
 
 public class CadastroPessoa {
 
@@ -182,7 +176,7 @@ public class CadastroPessoa {
 			try {
 				setDatePickerValue(admissao, pessoas.getADMISSAO());
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println(String.format("public class CadastroPessoa SelecionarLinhaTableView ERRO: %s", e.getMessage()));
 			}
 		
 			

@@ -1,13 +1,14 @@
 package br.com.hoyler.apps.imprimeponto;
 
 import java.net.URL;
+import javafx.fxml.FXML;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
+import javafx.scene.chart.CategoryAxis;
+
 
 public class RelatorioPessoasPorEmpresaController {
 

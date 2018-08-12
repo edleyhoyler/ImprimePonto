@@ -1,13 +1,12 @@
 package br.com.hoyler.apps.database.sqlite;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import br.com.hoyler.apps.tools.CheckFile;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import br.com.hoyler.apps.tools.CheckFile;
 
 public class EmpresasFabricaDAO {
 
@@ -127,7 +126,6 @@ public class EmpresasFabricaDAO {
 
 				while (resultSet.next()) {
 					LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
-					// System.out.println(Integer.parseInt(resultSet.getString("COUNT")));
 				}
 
 				if (LinhasAfetadas >= 1) {
@@ -383,7 +381,6 @@ public class EmpresasFabricaDAO {
 
 		} catch (SQLException e) {
 			System.out.println("public class FuncoesFabricaDAO List<Empresas> ListarEmpresas() TABELA: [Empresas]");
-			// e.printStackTrace();
 		}
 
 		return (ListaEmpresas);

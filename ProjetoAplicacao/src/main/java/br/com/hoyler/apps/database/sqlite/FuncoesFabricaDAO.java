@@ -2,10 +2,9 @@ package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import br.com.hoyler.apps.tools.CheckFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import br.com.hoyler.apps.tools.CheckFile;
 
 public class FuncoesFabricaDAO {
 	Database database = new Database();
@@ -117,7 +116,6 @@ public class FuncoesFabricaDAO {
 
 				while (resultSet.next()) {
 					LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
-					// System.out.println(Integer.parseInt(resultSet.getString("COUNT")));
 				}
 
 				if (LinhasAfetadas >= 1) {

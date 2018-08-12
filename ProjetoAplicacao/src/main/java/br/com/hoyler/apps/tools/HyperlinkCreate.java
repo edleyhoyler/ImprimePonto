@@ -11,32 +11,25 @@ public class HyperlinkCreate {
 
 	private void openLinkes(String link) {
 
-		Desktop desktop = null;
+		Desktop desktop = Desktop.getDesktop();
 
-		desktop = Desktop.getDesktop();
-
-		URI uri = null;
+		URI uri;
 
 		try {
 
 			uri = new URI(link);
 			desktop.browse(uri);
- 
+
 		} catch (IOException ioe) {
-
-			ioe.printStackTrace();
-
+			System.out.println(String.format("public class HyperlinkCreate openLinkes ERRO IOException: %s", ioe.getMessage()));
 		} catch (URISyntaxException use) {
-
-			use.printStackTrace();
-
+			System.out.println(String.format("public class HyperlinkCreate openLinkes ERRO URISyntaxException: %s", use.getMessage()));
 		}
-
 	}
 
 	public void openLinkeHOYLER(Hyperlink hyperlink) {
 
-		String SITE_HOYLER = "http://www.hoyler.com.br";
+		final String SITE_HOYLER = "http://www.hoyler.com.br";
 
 		openLinkes(SITE_HOYLER);
 

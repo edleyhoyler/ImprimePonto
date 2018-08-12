@@ -4,34 +4,29 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-
-import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import br.com.hoyler.apps.database.sqlite.Empresas;
 import br.com.hoyler.apps.database.sqlite.EmpresasFabricaDAO;
 import br.com.hoyler.apps.imagens.ImagensGetSet;
 import br.com.hoyler.apps.tools.CriarJanelaSalvarPDF;
 import br.com.hoyler.apps.tools.CriarMensagens;
 import br.com.hoyler.apps.tools.HyperlinkCreate;
-
 import org.jvfx.viewer.JasperViewerFX;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -588,13 +583,14 @@ public class CadastroEmpresaController {
 
 				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(null));
 
-				jasperReport = (JasperReport) JRLoader.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimeEmpresas());
+				jasperReport = (JasperReport) JRLoader
+						.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimeEmpresas());
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 
-			 
-				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Empresas", jasperPrint);
-				
+				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Empresas",
+						jasperPrint);
+
 				System.out.println("Tempo Total Relatorio  (NOME null): "
 						+ TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - tempoInicio)));
 
@@ -618,9 +614,9 @@ public class CadastroEmpresaController {
 
 				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 
-				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Empresas", jasperPrint);
-			 
-				
+				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Empresas",
+						jasperPrint);
+
 				System.out.println("Tempo Total Relatorio: "
 						+ TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - tempoInicio)));
 

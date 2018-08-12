@@ -1,13 +1,12 @@
 package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Calendar;
-
-import br.com.hoyler.apps.tools.CheckFile;
-import br.com.hoyler.apps.tools.DiaSemana;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import br.com.hoyler.apps.tools.CheckFile;
+import br.com.hoyler.apps.tools.DiaSemana;
 
 public class PessoasFabricaDAO {
 

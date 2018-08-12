@@ -1,9 +1,8 @@
 package br.com.hoyler.apps.tools;
 
 import java.io.File;
-
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 public class CriarJanelaSalvarPDF {
 
@@ -11,18 +10,14 @@ public class CriarJanelaSalvarPDF {
 
 		FileChooser fileChooser = new FileChooser();
 
-		// Set extension filter
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF Arquivo (*.pdf)", "*.pdf");
 		
 		fileChooser.getExtensionFilters().add(extFilter);
 		
-		fileChooser.setTitle("Salvar PDF");
+		fileChooser.setTitle("Salvar PDF --> " + nome);
 		
 		fileChooser.setInitialFileName(nome);
-		
-		// Stage stage = (Stage) vBox.getScene().getWindow();
-		
-		// Show save file dialog
+
 		File file = fileChooser.showSaveDialog(new Stage());
 
 		if (file != null)
@@ -46,23 +41,18 @@ public class CriarJanelaSalvarPDF {
 	
 		if (diretorioPDF != null)
 		{
-		 
 			returnFile = new File(String.format("%s\\%s.pdf", diretorioPDF, nome));
-			
 		}
 		else
 		{
 			System.out.println(String.format( "public class CriarJanelaSalvarPDF CriarDiretorioParaSalvarPDF : [%s]", diretorioPDF));		
 		}
-		
-		
-		
 		return (returnFile);
 	}
 	
 	private String DiretorioParaSalvarPDF() {
 
-		String returnString = new SelecionarDiretorio().Abrir("Diretorio para Salvar PDF(s)");
+		String returnString = SelecionarDiretorio.AbrirDialogoParaSelecionarDiretorio("Diretorio para Salvar PDF(s)");
 		
 		System.out.println(String.format( "public class CriarJanelaSalvarPDF DiretorioParaSalvarPDF : [%s]", returnString));
 		
