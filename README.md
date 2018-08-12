@@ -6,7 +6,7 @@
 # ImprimePonto
 Projeto Imprime Folha de Ponto para Funcionários
 
-[ImprimePonto.png](https://i.imgur.com/0T4cnUH.png)
+![ImprimePonto.png](https://i.imgur.com/0T4cnUH.png)
 
 # Downloads
 | Aplicativo          | Tipo   | Versao  | Link                                                                                                            |
@@ -22,7 +22,7 @@ Projeto Imprime Folha de Ponto para Funcionários
 *   Relatórios de Funções, Empresas e Funcionários
 *   Relatório Exportando para PDF, HTML, XML, XLS, XLSX
 
-[ImprimePontoPessoa](https://i.imgur.com/s1vt22R.png)
+![ImprimePontoPessoa](https://i.imgur.com/s1vt22R.png)
 
 
 # Requerimentos (Java Libs)
