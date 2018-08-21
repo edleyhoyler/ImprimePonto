@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import br.com.hoyler.apps.tools.CheckFile;
 import br.com.hoyler.apps.tools.DiaSemana;
 
 public class PessoasFabricaDAO {
@@ -70,15 +69,11 @@ public class PessoasFabricaDAO {
 
 		int LinhasAfetadas = -9999;
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
 		String NOME = pessoas.getNOME();
 		String CTPS = pessoas.getCTPS();
 		String ADMISSAO = pessoas.getADMISSAO();
 		String FUNCAO = pessoas.getFUNCAO();
 		String EMPRESA = pessoas.getEMPRESA();
-
-		if (BANCO_EXISTE) {
 
 			String CODIGO_SQL = ("INSERT INTO [Pessoas](NOME, CTPS, ADMISSAO, FUNCAO_CODIGO, EMPRESA_CODIGO) VALUES (?, ?, ?, ?, ?);");
 
@@ -113,13 +108,6 @@ public class PessoasFabricaDAO {
 						NOME, CTPS, ADMISSAO, FUNCAO, EMPRESA, LinhasAfetadas, ex.getMessage()));
 			}
 
-		} else {
-
-			System.out.println(String.format(
-					"public class PessoasFabricaDAO SalvarPessoasDados TABELA: [Pessoas] - CAMPO: [NOME] [%s] - CTPS: [%s] - ADMISSAO: [%s] - FUNCAO: [%s] - EMPRESA: [%s] INSERT: [%s] - [ELSE ERRO]",
-					NOME, CTPS, ADMISSAO, FUNCAO, EMPRESA, LinhasAfetadas));
-
-		}
 		return retornoBool;
 	}
 
@@ -134,10 +122,6 @@ public class PessoasFabricaDAO {
 		String ADMISSAO = pessoas.getADMISSAO();
 		String FUNCAO = pessoas.getFUNCAO();
 		String EMPRESA = pessoas.getEMPRESA();
-
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
-		if (BANCO_EXISTE) {
 
 			String CODIGO_SQL = ("UPDATE [Pessoas] SET [NOME] = (?), [CTPS] = (?), [ADMISSAO] = (?), [FUNCAO_CODIGO] = (?), [EMPRESA_CODIGO] = (?) WHERE [NOME] = (?);");
 
@@ -175,33 +159,21 @@ public class PessoasFabricaDAO {
 						Integer.toString(EMPRESA_CODIGO), LinhasAfetadas, e.getMessage()));
 			}
 
-		} else {
-
-			System.out.println(String.format(
-					"public class PessoasFabricaDAO UpdatePessoaDados TABELA: [Pessoas] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CTPS: [%s] - ADMISSAO: [%s] - FUNCAO: [%s] - EMPRESA: [%s] UPDATE: [%s] - [ELSE ERRO]",
-					valorNomeAntigo, NOME, CTPS, ADMISSAO, FUNCAO, EMPRESA, LinhasAfetadas));
-
-		}
-
 		return retornoBool;
 	}
 
 	public ObservableList<Pessoas> ListarPessoasNomes(String consulta) {
 
-		ObservableList<Pessoas> data = ListarPessoa(consulta);
+		ObservableList<Pessoas> retornoObservableList = ListarPessoa(consulta);
 
-		return data;
+		return (retornoObservableList);
 	}
 
 	private ObservableList<Pessoas> ListarPessoa(String consulta) {
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
-		ObservableList<Pessoas> data = FXCollections.observableArrayList();
+		ObservableList<Pessoas> retornoObservableList = FXCollections.observableArrayList();
 
 		int LinhasAfetadas = -9999;
-
-		if (BANCO_EXISTE) {
 
 			String Listar = ("SELECT " + "[P].[CODIGO], " + "[P].[NOME], " + "[P].[CTPS], " + "[P].[ADMISSAO], "
 					+ "[F].[NOME] [FUNCAO_CODIGO], " + "[E].[NOME] [EMPRESA_CODIGO] " + "FROM [Pessoas] [P] "
@@ -224,8 +196,8 @@ public class PessoasFabricaDAO {
 				ResultSet resultSet = database.getPreparedStatement().executeQuery();
 
 				while (resultSet.next()) {
+					
 					LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
-					// System.out.println(Integer.parseInt(resultSet.getString("COUNT")));
 				}
 
 				if (LinhasAfetadas >= 1) {
@@ -253,12 +225,12 @@ public class PessoasFabricaDAO {
 						pessoas.setFUNCAO(FUNCAO_CODIGO);
 						pessoas.setEMPRESA(EMPRESA_CODIGO);
 
-						data.add(pessoas);
+						retornoObservableList.add(pessoas);
 					}
 
 					System.out.println(String.format(
-							"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+							"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] - TOTAL: [%s]",
+							consulta, Integer.toString(LinhasAfetadas)));
 
 				} else {
 
@@ -270,29 +242,21 @@ public class PessoasFabricaDAO {
 					pessoas.setFUNCAO("...: SEM DADOS :...");
 					pessoas.setEMPRESA("...: SEM DADOS :...");
 
-					data.add(pessoas);
+					retornoObservableList.add(pessoas);
 					System.out.println(String.format(
-							"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+							"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] - TOTAL: [%s]",
+							consulta, Integer.toString(LinhasAfetadas)));
 
 				}
 
 			} catch (SQLException e) {
 
 				System.out.println(String.format(
-						"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] - BANCO_EXISTE: [%s] - [TRY ERRO]: [%s]",
-						consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+						"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] - [TRY ERRO]: [%s]",
+						consulta, Integer.toString(LinhasAfetadas)));
 
 			}
-
-		} else {
-
-			System.out.println(String.format(
-					"public class PessoasFabricaDAO  ListarPessoasNomes TABELA: [Pessoas] - NOME: [%s] BANCO_EXISTE: [%s] [ELSE ERRO]: [%s]",
-					consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
-
-		}
-		return data;
+		return (retornoObservableList);
 	}
 
 	public ObservableList<String> ListarFuncoesNomes(String consulta) {
@@ -305,14 +269,11 @@ public class PessoasFabricaDAO {
 
 	private ObservableList<String> ListarNomes(String consulta) {
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
 		ObservableList<String> data = FXCollections.observableArrayList();
 
 		int LinhasAfetadas = -9999;
-		if (BANCO_EXISTE) {
 
-			String Listar = ("SELECT [F].[NOME] FROM [FUNCOES] AS [F] WHERE [NOME] LIKE ?;");
+		String Listar = ("SELECT [F].[NOME] FROM [FUNCOES] AS [F] WHERE [NOME] LIKE ?;");
 			String Contar = ("SELECT COUNT(*) AS [COUNT] FROM [FUNCOES] AS [F] WHERE [NOME] LIKE ?;");
 
 			try {
@@ -345,32 +306,26 @@ public class PessoasFabricaDAO {
 					}
 
 					System.out.println(String.format(
-							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] - TOTAL: [%s]",
+							consulta, Integer.toString(LinhasAfetadas)));
 
 				} else {
 
 					data.add("...: SEM DADOS :...");
 					System.out.println(String.format(
-							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] - TOTAL: [%s]",
+							consulta, Integer.toString(LinhasAfetadas)));
 				}
 
 			} catch (SQLException e) {
 
 				System.out.println(String.format(
-						"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] - BANCO_EXISTE: [%s] - [TRY ERRO]: [%s]",
-						consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+						"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] - [TRY ERRO]: [%s]",
+						consulta, Integer.toString(LinhasAfetadas)));
 
 				// e.printStackTrace();
 			}
 
-		} else {
-
-			System.out.println(String.format(
-					"public class PessoasFabricaDAO ListarFuncoes TABELA: [Pessoas] - NOME: [%s] BANCO_EXISTE: [%s] [ELSE ERRO]: [%s]",
-					consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
-		}
 
 		return data;
 
@@ -386,12 +341,9 @@ public class PessoasFabricaDAO {
 
 	private ObservableList<String> ListarEmpresas(String consulta) {
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
-		ObservableList<String> data = FXCollections.observableArrayList();
+		ObservableList<String> retornoObservableList = FXCollections.observableArrayList();
 
 		int LinhasAfetadas = -9999;
-		if (BANCO_EXISTE) {
 
 			String Listar = ("SELECT [F].[NOME] FROM [EMPRESAS] AS [F] WHERE [NOME] LIKE ?;");
 			String Contar = ("SELECT COUNT(*) AS [COUNT] FROM [EMPRESAS] AS [F] WHERE [NOME] LIKE ?;");
@@ -422,38 +374,30 @@ public class PessoasFabricaDAO {
 
 					while (resultSet.next()) {
 
-						data.add(resultSet.getString(database.CAMPO_NOME));
+						retornoObservableList.add(resultSet.getString(database.CAMPO_NOME));
 					}
 
 					System.out.println(String.format(
-							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] - TOTAL: [%s]",
+							consulta, Integer.toString(LinhasAfetadas)));
 
 				} else {
 
-					data.add("...: SEM DADOS :...");
+					retornoObservableList.add("...: SEM DADOS :...");
 					System.out.println(String.format(
-							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+							"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] - TOTAL: [%s]",
+							consulta, Integer.toString(LinhasAfetadas)));
 				}
 
 			} catch (SQLException e) {
 
 				System.out.println(String.format(
-						"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] - BANCO_EXISTE: [%s] - [TRY ERRO]: [%s]",
-						consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+						"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] - [TRY ERRO]: [%s]",
+						consulta, Integer.toString(LinhasAfetadas)));
 
-				// e.printStackTrace();
 			}
 
-		} else {
-
-			System.out.println(String.format(
-					"public class PessoasFabricaDAO ListarFuncoes TABELA: [Funcoes] - NOME: [%s] BANCO_EXISTE: [%s] [ELSE ERRO]: [%s]",
-					consulta, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
-		}
-
-		return data;
+		return (retornoObservableList);
 
 	}
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import br.com.hoyler.apps.tools.CheckFile;
 
 public class EmpresasFabricaDAO {
 
@@ -51,143 +50,119 @@ public class EmpresasFabricaDAO {
 
 		int LinhasAfetadas = -9999;
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
 		String NOME = empresas.getNOME();
 		String CNPJ = empresas.getCPNJ();
 		String ENDERECO = empresas.getENDERECO();
 
-		if (BANCO_EXISTE) {
+		String codigoSQL = ("UPDATE [Empresas] SET [NOME] = (?), [CNPJ] = (?), [ENDERECO] = (?) WHERE [NOME] = (?);");
+		try {
+			database.CriarConexaoDB();
 
-			String codigoSQL = ("UPDATE [Empresas] SET [NOME] = (?), [CNPJ] = (?), [ENDERECO] = (?) WHERE [NOME] = (?);");
-			try {
-				database.CriarConexaoDB();
+			database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
 
-				database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
+			database.getPreparedStatement().setString(1, NOME);
+			database.getPreparedStatement().setString(2, CNPJ);
+			database.getPreparedStatement().setString(3, ENDERECO);
+			database.getPreparedStatement().setString(4, valorNomeAntigo);
 
-				database.getPreparedStatement().setString(1, NOME);
-				database.getPreparedStatement().setString(2, CNPJ);
-				database.getPreparedStatement().setString(3, ENDERECO);
-				database.getPreparedStatement().setString(4, valorNomeAntigo);
-
-				LinhasAfetadas = database.getPreparedStatement().executeUpdate();
-
-				System.out.println(String.format(
-						"public class EmpresasFabricaDAO UpdateEmpresas TABELA: [Empresas] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [OK]",
-						valorNomeAntigo, NOME, CNPJ, ENDERECO, LinhasAfetadas));
-
-				retornoBool = true;
-
-			} catch (SQLException ex) {
-
-				System.out.println(String.format(
-						"public class EmpresasFabricaDAO UpdateEmpresas TABELA: [Empresas] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [TRU ERRO]\n%s",
-						valorNomeAntigo, NOME, CNPJ, ENDERECO, LinhasAfetadas, ex.getMessage()));
-			}
-
-		} else {
+			LinhasAfetadas = database.getPreparedStatement().executeUpdate();
 
 			System.out.println(String.format(
-					"public class EmpresasFabricaDAO UpdateEmpresas TABELA: [Empresas] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [ELSE ERRO]",
+					"public class EmpresasFabricaDAO UpdateEmpresas TABELA: [Empresas] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [OK]",
 					valorNomeAntigo, NOME, CNPJ, ENDERECO, LinhasAfetadas));
 
+			retornoBool = true;
+
+		} catch (SQLException ex) {
+
+			System.out.println(String.format(
+					"public class EmpresasFabricaDAO UpdateEmpresas TABELA: [Empresas] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [TRU ERRO]\n%s",
+					valorNomeAntigo, NOME, CNPJ, ENDERECO, LinhasAfetadas, ex.getMessage()));
 		}
+
 		return retornoBool;
 	}
 
 	public ObservableList<Empresas> ListarEmpresasNomes(String nome) {
 
-		ObservableList<Empresas> data = ListarNomes(nome);
+		ObservableList<Empresas> retornoObservableList = ListarNomes(nome);
 
-		return data;
+		return (retornoObservableList);
 	}
 
 	private ObservableList<Empresas> ListarNomes(String nome) {
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
-		ObservableList<Empresas> data = FXCollections.observableArrayList();
+		ObservableList<Empresas> retornoObservableList = FXCollections.observableArrayList();
 
 		int LinhasAfetadas = -9999;
 
-		if (BANCO_EXISTE) {
+		String Listar = ("SELECT * FROM [Empresas] WHERE [NOME] like ?;");
+		String Contar = ("SELECT Count(*) AS [COUNT] FROM [Empresas] WHERE [NOME] like ?;");
+		try {
 
-			String Listar = ("SELECT * FROM [Empresas] WHERE [NOME] like ?;");
-			String Contar = ("SELECT Count(*) AS [COUNT] FROM [Empresas] WHERE [NOME] like ?;");
-			try {
+			database.CriarConexaoDB();
 
-				database.CriarConexaoDB();
+			database.setPreparedStatement(database.getConnection().prepareStatement(Contar));
 
-				database.setPreparedStatement(database.getConnection().prepareStatement(Contar));
+			database.getPreparedStatement().setString(1, ('%' + nome + '%'));
+
+			ResultSet resultSet = database.getPreparedStatement().executeQuery();
+
+			while (resultSet.next()) {
+				LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
+			}
+
+			if (LinhasAfetadas >= 1) {
+
+				database.setPreparedStatement(database.getConnection().prepareStatement(Listar));
 
 				database.getPreparedStatement().setString(1, ('%' + nome + '%'));
 
-				ResultSet resultSet = database.getPreparedStatement().executeQuery();
+				resultSet = database.getPreparedStatement().executeQuery();
 
 				while (resultSet.next()) {
-					LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
-				}
 
-				if (LinhasAfetadas >= 1) {
-
-					database.setPreparedStatement(database.getConnection().prepareStatement(Listar));
-
-					database.getPreparedStatement().setString(1, ('%' + nome + '%'));
-
-					resultSet = database.getPreparedStatement().executeQuery();
-
-					while (resultSet.next()) {
-
-						Integer CODIGO = resultSet.getInt(database.CAMPO_CODIGO);
-						String NOME = resultSet.getString(database.CAMPO_NOME);
-						String CNPJ = resultSet.getString(database.CAMPO_CNPJ);
-						String ENDERECO = resultSet.getString(database.CAMPO_ENDERECO);
-
-						Empresas empresas = new Empresas();
-						empresas.setCODIGO(CODIGO);
-						empresas.setNOME(NOME);
-						empresas.setCPNJ(CNPJ);
-						empresas.setENDERECO(ENDERECO);
-
-						data.add(empresas);
-					}
-
-					System.out.println(String.format(
-							"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							nome, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
-
-				} else {
+					Integer CODIGO = resultSet.getInt(database.CAMPO_CODIGO);
+					String NOME = resultSet.getString(database.CAMPO_NOME);
+					String CNPJ = resultSet.getString(database.CAMPO_CNPJ);
+					String ENDERECO = resultSet.getString(database.CAMPO_ENDERECO);
 
 					Empresas empresas = new Empresas();
-					empresas.setCODIGO(0);
-					empresas.setNOME("...: SEM DADOS :...");
-					empresas.setCPNJ("...: SEM DADOS :...");
-					empresas.setENDERECO("...: SEM DADOS :...");
+					empresas.setCODIGO(CODIGO);
+					empresas.setNOME(NOME);
+					empresas.setCPNJ(CNPJ);
+					empresas.setENDERECO(ENDERECO);
 
-					data.add(empresas);
-					System.out.println(String.format(
-							"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] - BANCO_EXISTE: [%s] - TOTAL: [%s]",
-							nome, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
-
+					retornoObservableList.add(empresas);
 				}
 
-			} catch (SQLException e) {
-
 				System.out.println(String.format(
-						"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] - BANCO_EXISTE: [%s] - [TRY ERRO]: [%s]",
-						nome, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+						"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] - TOTAL: [%s]",
+						nome, Integer.toString(LinhasAfetadas)));
+
+			} else {
+
+				Empresas empresas = new Empresas();
+				empresas.setCODIGO(0);
+				empresas.setNOME("...: SEM DADOS :...");
+				empresas.setCPNJ("...: SEM DADOS :...");
+				empresas.setENDERECO("...: SEM DADOS :...");
+
+				retornoObservableList.add(empresas);
+				System.out.println(String.format(
+						"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] - TOTAL: [%s]",
+						nome, Integer.toString(LinhasAfetadas)));
 
 			}
 
-		} else {
+		} catch (SQLException e) {
 
 			System.out.println(String.format(
-					"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] BANCO_EXISTE: [%s] [ELSE ERRO]: [%s]",
-					nome, BANCO_EXISTE.toString(), Integer.toString(LinhasAfetadas)));
+					"public class EmpresasFabricaDAO ListarNomes TABELA: [Empresas] - NOME: [%s] - [TRY ERRO]: [%s]",nome, Integer.toString(LinhasAfetadas)));
 
 		}
 
-		return data;
+		return (retornoObservableList);
 
 	}
 
@@ -211,127 +186,104 @@ public class EmpresasFabricaDAO {
 
 		int LinhasAfetadas = -9999;
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
 		String NOME = empresas.getNOME();
 		String CNPJ = empresas.getCPNJ();
 		String ENDERECO = empresas.getENDERECO();
 
-		if (BANCO_EXISTE) {
+		String codigoSQL = ("INSERT INTO [Empresas] (NOME, CNPJ, ENDERECO) VALUES (?, ?, ?);");
 
-			String codigoSQL = ("INSERT INTO [Empresas] (NOME, CNPJ, ENDERECO) VALUES (?, ?, ?);");
+		try {
 
-			try {
+			database.CriarConexaoDB();
 
-				database.CriarConexaoDB();
+			database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
 
-				database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
+			database.getPreparedStatement().setString(1, NOME);
+			database.getPreparedStatement().setString(2, CNPJ);
+			database.getPreparedStatement().setString(3, ENDERECO);
 
-				database.getPreparedStatement().setString(1, NOME);
-				database.getPreparedStatement().setString(2, CNPJ);
-				database.getPreparedStatement().setString(3, ENDERECO);
-
-				LinhasAfetadas = database.getPreparedStatement().executeUpdate();
-
-				System.out.println(String.format(
-						"public class EmpresasFabricaDAO SalvarEmpresasDados TABELA: [Empresas] - NOME: [%s] - CNPJ: [%s] ENDERECO: [%s] SALVAR: [%s] [OK]",
-						NOME, CNPJ, ENDERECO, LinhasAfetadas));
-
-				retornoBool = true;
-
-			} catch (SQLException ex) {
-
-				System.out.println(String.format(
-						"public class EmpresasFabricaDAO SalvarEmpresasDados TABELA: [Empresas] - NOME: [%s] - CNPJ: [%s] ENDERECO: [%s] SALVAR: [%s] [TRY ERRO]\n%s",
-						NOME, CNPJ, ENDERECO, LinhasAfetadas, ex.getMessage()));
-
-			}
-
-		} else {
+			LinhasAfetadas = database.getPreparedStatement().executeUpdate();
 
 			System.out.println(String.format(
-					"public class EmpresasFabricaDAO SalvarEmpresasDados TABELA: [Empresas] - NOME: [%s] - CNPJ: [%s] ENDERECO: [%s] SALVAR: [%s] [ELSE ERRO]",
+					"public class EmpresasFabricaDAO SalvarEmpresasDados TABELA: [Empresas] - NOME: [%s] - CNPJ: [%s] ENDERECO: [%s] SALVAR: [%s] [OK]",
 					NOME, CNPJ, ENDERECO, LinhasAfetadas));
 
+			retornoBool = true;
+
+		} catch (SQLException ex) {
+
+			System.out.println(String.format(
+					"public class EmpresasFabricaDAO SalvarEmpresasDados TABELA: [Empresas] - NOME: [%s] - CNPJ: [%s] ENDERECO: [%s] SALVAR: [%s] [TRY ERRO]\n%s",
+					NOME, CNPJ, ENDERECO, LinhasAfetadas, ex.getMessage()));
+
 		}
+
 		return retornoBool;
 	}
 
 	public int getCodigoPeloNome(String nome) {
 
-		int CODIGO_RETORNO = -9999;
+		int RetornoInt = -9999;
 
 		int CONTADOR_BUSCA = -9999;
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(database.PATCH_FILE));
-
 		String NOME = nome;
 
-		if (BANCO_EXISTE) {
+		String CONTADOR_SQL = ("SELECT  Count(*) AS [COUNT] FROM [Empresas] WHERE [NOME] = (?);");
 
-			String CONTADOR_SQL = ("SELECT  Count(*) AS [COUNT] FROM [Empresas] WHERE [NOME] = (?);");
+		String CODIGO_SQL = ("SELECT [F].[CODIGO] FROM [Empresas] [F] WHERE [NOME] = (?);");
 
-			String CODIGO_SQL = ("SELECT [F].[CODIGO] FROM [Empresas] [F] WHERE [NOME] = (?);");
+		try {
 
-			try {
+			database.CriarConexaoDB();
 
-				database.CriarConexaoDB();
+			database.setPreparedStatement(database.getConnection().prepareStatement(CONTADOR_SQL));
 
-				database.setPreparedStatement(database.getConnection().prepareStatement(CONTADOR_SQL));
+			database.getPreparedStatement().setString(1, NOME);
 
-				database.getPreparedStatement().setString(1, NOME);
+			ResultSet resultSet = database.getPreparedStatement().executeQuery();
 
-				ResultSet resultSet = database.getPreparedStatement().executeQuery();
+			while (resultSet.next()) {
 
-				while (resultSet.next()) {
-
-					CONTADOR_BUSCA = Integer.parseInt(resultSet.getString("COUNT"));
-
-				}
-
-				if (CONTADOR_BUSCA >= 1) {
-
-					database.setPreparedStatement(database.getConnection().prepareStatement(CODIGO_SQL));
-
-					database.getPreparedStatement().setString(1, NOME);
-
-					resultSet = database.getPreparedStatement().executeQuery();
-
-					while (resultSet.next()) {
-
-						CODIGO_RETORNO = resultSet.getInt(database.CAMPO_CODIGO);
-
-					}
-
-					System.out.println(String.format(
-							"public class EmpresasFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] - BANCO_EXISTE: [%s] [OK]  CONTADOR_BUSCA: [%s]",
-							NOME, CODIGO_RETORNO, BANCO_EXISTE.toString(), CONTADOR_BUSCA));
-
-				} else {
-
-					System.out.println(String.format(
-							"public class EmpresasFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] - BANCO_EXISTE: [%s] [ELSE OK] CONTADOR_BUSCA: [%s]",
-							NOME, CODIGO_RETORNO, BANCO_EXISTE.toString(), CONTADOR_BUSCA));
-
-				}
-
-			} catch (SQLException e) {
-
-				System.out.println(String.format(
-						"public class FuncoesFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] - BANCO_EXISTE: [%s] [TRY ERRO] [%s]",
-						NOME, CODIGO_RETORNO, BANCO_EXISTE.toString(), CONTADOR_BUSCA));
+				CONTADOR_BUSCA = Integer.parseInt(resultSet.getString("COUNT"));
 
 			}
 
-		} else {
+			if (CONTADOR_BUSCA >= 1) {
+
+				database.setPreparedStatement(database.getConnection().prepareStatement(CODIGO_SQL));
+
+				database.getPreparedStatement().setString(1, NOME);
+
+				resultSet = database.getPreparedStatement().executeQuery();
+
+				while (resultSet.next()) {
+
+					RetornoInt = resultSet.getInt(database.CAMPO_CODIGO);
+
+				}
+
+				System.out.println(String.format(
+						"public class EmpresasFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] [OK] CONTADOR_BUSCA: [%s]",
+						NOME, RetornoInt, CONTADOR_BUSCA));
+
+			} else {
+
+				System.out.println(String.format(
+						"public class EmpresasFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] [ELSE OK] CONTADOR_BUSCA: [%s]",
+						NOME, RetornoInt, CONTADOR_BUSCA));
+
+			}
+
+		} catch (SQLException e) {
 
 			System.out.println(String.format(
-					"public class FuncoesFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] - BANCO_EXISTE: [%s] [ELSE ERRO] [%s]",
-					NOME, CODIGO_RETORNO, BANCO_EXISTE.toString(), CODIGO_RETORNO));
+					"public class FuncoesFabricaDAO getCodigoPeloNome TABELA: [Empresas] - NOME: [%s] CODIGO: [%s] [TRY ERRO] [%s]",
+					NOME, RetornoInt, CONTADOR_BUSCA));
 
 		}
 
-		return CODIGO_RETORNO;
+		return RetornoInt;
 	}
 
 	public List<Empresas> ListarEmpresas() {

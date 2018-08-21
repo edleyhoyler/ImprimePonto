@@ -7,30 +7,37 @@ import java.sql.DriverManager;
 import org.sqlite.SQLiteConfig;
 import java.sql.PreparedStatement;
 import br.com.hoyler.apps.tools.CheckFile;
-import br.com.hoyler.apps.tools.ProgramDirectoryUtilities;
 
 public class Database {
 
+	public Database() {
+		
+	}
+
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
-
-	private final String BANCO_DE_DADOS = ("ImprimeFolha.s3db");
+	private final String BANCO_DE_DADOS_ARQUIVO = ("ImprimeFolha.s3db");
+	private final String BANCO_DE_DADOS_CAMINHO = ("ImprimePonto/Database/");
 
 	public final String TABELA_FUNCOES = ("Funcoes");
 	public final String TABELA_EMPRESAS = ("Empresas");
 	public final String TABELA_PESSOAS = ("Pessoas");
+	public final String CAMPO_CODIGO = ("CODIGO");
+	public final String CAMPO_NOME = ("NOME");
+	public final String CAMPO_CNPJ = ("CNPJ");
+	public final String CAMPO_CTPS = ("CTPS");
+	public final String CAMPO_ENDERECO = ("ENDERECO");
+	public final String CAMPO_ADMISSAO = ("ADMISSAO");
+	public final String CAMPO_FUNCAO_CODIGO = ("FUNCAO_CODIGO");
+	public final String CAMPO_EMPRESA_CODIGO = ("EMPRESA_CODIGO");
 
-	public final String CAMPO_CODIGO = "CODIGO";
-	public final String CAMPO_NOME = "NOME";
-	public final String CAMPO_CNPJ = "CNPJ";
-	public final String CAMPO_CTPS = "CTPS";
-	public final String CAMPO_ENDERECO = "ENDERECO";
-	public final String CAMPO_ADMISSAO = "ADMISSAO";
-	public final String CAMPO_FUNCAO_CODIGO = "FUNCAO_CODIGO";
-	public final String CAMPO_EMPRESA_CODIGO = "EMPRESA_CODIGO";
+	public final String getBANCO_DE_DADOS_ARQUIVO() {
+		return BANCO_DE_DADOS_ARQUIVO;
+	}
 
-	public final String PATCH_FILE = String.format("%s\\ImprimePonto\\Database\\%s",
-			ProgramDirectoryUtilities.getProgramDirectory(), BANCO_DE_DADOS);
+	public final String getBANCO_DE_DADOS_CAMINHO() {
+		return BANCO_DE_DADOS_CAMINHO;
+	}
 
 	public Connection getConnection() {
 		return connection;
@@ -50,13 +57,14 @@ public class Database {
 
 	public void CriarConexaoDB() {
 
-		Boolean BANCO_EXISTE = (new CheckFile().FileExists(PATCH_FILE));
+		Boolean ARQUIVO_EXISTE = (new CheckFile()
+				.FileExists(br.com.hoyler.apps.tools.ProgramDirectoryUtilities.getProgramDirectory() + "\\"
+						+ BANCO_DE_DADOS_CAMINHO + BANCO_DE_DADOS_ARQUIVO));
 
-		if (BANCO_EXISTE) {
+		if (ARQUIVO_EXISTE) {
 
-			String DatabaseURL = String.format("%s%s", "jdbc:sqlite:", PATCH_FILE);
-
-			String DB_URL = DatabaseURL;
+			String DatabaseURL = String.format("%s%s%s", "jdbc:sqlite:", BANCO_DE_DADOS_CAMINHO,
+					BANCO_DE_DADOS_ARQUIVO);
 
 			String DRIVER = "org.sqlite.JDBC";
 
@@ -64,29 +72,29 @@ public class Database {
 
 				Class.forName(DRIVER);
 
-				SQLiteConfig config = new SQLiteConfig();
-				config.setBusyTimeout("15000");
-				config.enforceForeignKeys(true);
+				SQLiteConfig sqLiteConfig = new SQLiteConfig();
+				sqLiteConfig.setBusyTimeout("15000");
+				sqLiteConfig.enforceForeignKeys(true);
 
-				connection = DriverManager.getConnection(DB_URL, config.toProperties());
+				connection = DriverManager.getConnection(DatabaseURL, sqLiteConfig.toProperties());
 
 			} catch (ClassNotFoundException e) {
 
-				System.out.println(
-						String.format("public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DRIVER: [%s] [CATCH ERRO]", DRIVER));
+				System.out.println(String.format(
+						"public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DRIVER: [%s] [ClassNotFoundException TRY ERRO]",
+						DRIVER));
 
 			} catch (SQLException e) {
 
-				System.out.println(
-						String.format("public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DB_URL: [%s] [CATCH ERRO]", DB_URL));
+				System.out.println(String.format(
+						"public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DB_URL: [%s] [SQLException TRY ERRO]",
+						DatabaseURL));
 			}
 
-		} else
-
-		{
-			System.out
-					.println(String.format("public class br.com.hoyler.apps.database.sqlite CriarConexaoDB BANCO_EXISTE: [%s] [ELSE ERRO]",
-							BANCO_EXISTE.toString()));
+		} else {
+			System.out.println(String.format(
+					"public class br.com.hoyler.apps.database.sqlite CriarConexaoDB BANCO_EXISTE: [%s] [ELSE ERRO]",
+					ARQUIVO_EXISTE.toString()));
 
 		}
 
@@ -98,7 +106,7 @@ public class Database {
 
 			connection = null;
 			preparedStatement = null;
-			System.out.println("ConexaoDBClose NULL [OK]\n");
+			System.out.println("ConexaoDBClose SET NULL [OK]\n");
 		} else {
 			connection.close();
 			preparedStatement.close();
@@ -109,85 +117,64 @@ public class Database {
 
 	public Boolean DeletarCodigos(String tablela, String campo, int codigo) {
 
-		Boolean retornoBool = false;
+		Boolean returnBool = false;
 
 		int LinhasAfetadas = -9999;
 
-		Boolean bancoExiste = (new CheckFile().FileExists(PATCH_FILE));
+		String DeletarFuncoesCodigoSQL = String.format("DELETE FROM [%s] WHERE %s = (?);", tablela, campo);
+		try {
 
-		if (bancoExiste) {
-			String DeletarFuncoesCodigoSQL = String.format("DELETE FROM [%s] WHERE %s = (?);", tablela, campo);
-			try {
+			this.CriarConexaoDB();
 
-				this.CriarConexaoDB();
+			preparedStatement = connection.prepareStatement(DeletarFuncoesCodigoSQL);
+			preparedStatement.setInt(1, codigo);
 
-				preparedStatement = connection.prepareStatement(DeletarFuncoesCodigoSQL);
-				preparedStatement.setInt(1, codigo);
-
-				LinhasAfetadas = preparedStatement.executeUpdate();
-
-				System.out.println(String.format(
-						"public class br.com.hoyler.apps.database.sqlite DeletarCodigos TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [OK]",
-						tablela, campo, Integer.toString(codigo), LinhasAfetadas));
-
-				retornoBool = true;
-
-			} catch (SQLException ex) {
-
-				System.out.println(String.format(
-						"public class br.com.hoyler.apps.database.sqlite DeletarCodigos TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [TRY ERRO]\n%s",
-						tablela, campo, Integer.toString(codigo), LinhasAfetadas, ex.getMessage()));
-			}
-
-		} else {
+			LinhasAfetadas = preparedStatement.executeUpdate();
 
 			System.out.println(String.format(
-					"public class br.com.hoyler.apps.database.sqlite DeletarCodigos TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [ELSE ERRO]",
+					"public class br.com.hoyler.apps.database.sqlite DeletarCodigos TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [OK]",
 					tablela, campo, Integer.toString(codigo), LinhasAfetadas));
-		}
 
-		return retornoBool;
+			returnBool = true;
+
+		} catch (SQLException ex) {
+
+			System.out.println(String.format(
+					"public class br.com.hoyler.apps.database.sqlite DeletarCodigos TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [SQLException TRY ERRO]\n%s",
+					tablela, campo, Integer.toString(codigo), LinhasAfetadas, ex.getMessage()));
+		}
+		return returnBool;
 	}
 
 	public Boolean DeletarNomes(String tablela, String campo, String nome) {
 
-		Boolean retornoBool = false;
+		Boolean returnBool = false;
 
 		int LinhasAfetadas = -9999;
 
-		Boolean bancoExiste = (new CheckFile().FileExists(PATCH_FILE));
+		String DeletarFuncoesCodigoSQL = String.format("DELETE FROM [%s] WHERE %s = (?);", tablela, campo);
+		try {
 
-		if (bancoExiste) {
+			this.CriarConexaoDB();
 
-			String DeletarFuncoesCodigoSQL = String.format("DELETE FROM [%s] WHERE %s = (?);", tablela, campo);
-			try {
+			preparedStatement = connection.prepareStatement(DeletarFuncoesCodigoSQL);
+			preparedStatement.setString(1, nome);
 
-				this.CriarConexaoDB();
+			LinhasAfetadas = preparedStatement.executeUpdate();
 
-				preparedStatement = connection.prepareStatement(DeletarFuncoesCodigoSQL);
-				preparedStatement.setString(1, nome);
-
-				LinhasAfetadas = preparedStatement.executeUpdate();
-
-				System.out.println(String.format(
-						"public class br.com.hoyler.apps.database.sqlite DeletarNomes TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [OK]",
-						tablela, campo, nome, LinhasAfetadas));
-
-				retornoBool = true;
-
-			} catch (SQLException ex) {
-				System.out.println(String.format(
-						"public class br.com.hoyler.apps.database.sqlite DeletarNomes TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] [TRY ERRO]\n%s",
-						tablela, campo, nome));
-			}
-
-		} else {
 			System.out.println(String.format(
-					"public class br.com.hoyler.apps.database.sqlite DeletarNomes TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [ELSE ERRO]",
+					"public class br.com.hoyler.apps.database.sqlite DeletarNomes TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] DELETADO: [%s] [OK]",
 					tablela, campo, nome, LinhasAfetadas));
+
+			returnBool = true;
+
+		} catch (SQLException ex) {
+			System.out.println(String.format(
+					"public class br.com.hoyler.apps.database.sqlite DeletarNomes TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] [SQLException TRY ERRO]\n%s",
+					tablela, campo, nome));
 		}
 
-		return retornoBool;
+		return returnBool;
 	}
 
 	public ResultSet ExecutarSQL(String scriptSQL) {
@@ -203,8 +190,9 @@ public class Database {
 			returnResultSet = preparedStatement.executeQuery();
 
 		} catch (SQLException e) {
- 
-			System.out.println(String.format("public class br.com.hoyler.apps.database.sqlite ExecutarSQL SQL: [%s] [TRY ERRO]", scriptSQL));
+
+			System.out.println(String.format(
+					"public class br.com.hoyler.apps.database.sqlite ExecutarSQL SQL: [%s] [SQLException TRY ERRO]", scriptSQL));
 		}
 
 		return (returnResultSet);
