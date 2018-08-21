@@ -48,7 +48,7 @@ Ementa: RECURSO DE REVISTA - PRELIMINAR DE NULIDADE DO ACÓRDÃO REGIONAL POR NE
 *   Notepad++ 7.5.5
 *   SQLiteStudio 3.1.1
 *   Jaspersoft Studio 6.6.0
-*   Eclipse Oxygen.3a Release 4.7.3a
+*   Eclipse Java EE IDE Photon Release (4.8.0)
 
 # Licença
 -------
