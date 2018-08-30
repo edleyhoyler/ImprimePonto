@@ -37,10 +37,10 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 /**
- * An simple approach to JasperViewer in JavaFX. Based on Michael Grecol
+ * An simple approach to JasperViewer in JavaFX. Based on Michael Grecol & Gustavo Fragoso
  * approach.
  * 
- * @author Gustavo Fragoso
+ * @author Edy
  * @version 3.1
  */
 public class JasperViewerFX {
@@ -63,6 +63,7 @@ public class JasperViewerFX {
         dialog.setScene(createScene());
         dialog.getIcons().add(new Image("/org/jvfx/icons/printer.png"));
         System.out.println("public class JasperViewerFX - Criando JasperViewerFX Relatorio");
+        
         currentPage = new SimpleIntegerProperty(this, "currentPage", 1);
     }
     
@@ -147,6 +148,7 @@ public class JasperViewerFX {
         root.setTop(menu);
         root.setCenter(scroll);
         root.setBottom(bottomLabel);
+        BorderPane.setAlignment(bottomLabel, Pos.BOTTOM_CENTER);
         
         return new Scene(root, 850, 700);
     }

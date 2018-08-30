@@ -16,7 +16,7 @@ public class Database {
 
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
-	private final String BANCO_DE_DADOS_ARQUIVO = ("ImprimeFolha.s3db");
+	private final String BANCO_DE_DADOS_ARQUIVO = ("ImprimePonto.s3db");
 	private final String BANCO_DE_DADOS_CAMINHO = ("ImprimePonto/Database/");
 
 	public final String TABELA_FUNCOES = ("Funcoes");
@@ -57,9 +57,7 @@ public class Database {
 
 	public void CriarConexaoDB() {
 
-		Boolean ARQUIVO_EXISTE = (new CheckFile()
-				.FileExists(br.com.hoyler.apps.tools.ProgramDirectoryUtilities.getProgramDirectory() + "\\"
-						+ BANCO_DE_DADOS_CAMINHO + BANCO_DE_DADOS_ARQUIVO));
+		Boolean ARQUIVO_EXISTE = (new CheckFile().FileExists(BANCO_DE_DADOS_CAMINHO + BANCO_DE_DADOS_ARQUIVO));
 
 		if (ARQUIVO_EXISTE) {
 

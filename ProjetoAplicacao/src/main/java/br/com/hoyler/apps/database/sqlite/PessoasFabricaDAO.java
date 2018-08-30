@@ -429,7 +429,6 @@ public class PessoasFabricaDAO {
 		querrySQL += ("[P].[FUNCAO_CODIGO] = [F].[CODIGO] ");
 		querrySQL += ("INNER JOIN  [Empresas] [E] ON ");
 		querrySQL += ("[P].[EMPRESA_CODIGO] = [E].[CODIGO] ");
-		System.out.println(DiaSemana.ChecarDiaSemana("222"));
 		if (nome == null) {
 
 			return database.ExecutarSQL(querrySQL);

@@ -1,16 +1,15 @@
 package br.com.hoyler.apps.reports;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import br.com.hoyler.apps.tools.CheckFile;
-import br.com.hoyler.apps.tools.ProgramDirectoryUtilities;
 
 public class Relatorios {
 
 	private String getRelatorio(String relatorio) {
 
-		final String CAMINHO_PADRAO = String.format("%s\\ImprimePonto\\Relatorio\\",
-				ProgramDirectoryUtilities.getProgramDirectory());
+		final String CAMINHO_PADRAO = ("ImprimePonto/Relatorio/");
 
 		final String returnString = String.format("%s%s", CAMINHO_PADRAO, relatorio);
 
@@ -19,13 +18,22 @@ public class Relatorios {
 
 	private File getRelatorioFile(String relatorio) {
 
-		String file = relatorio;
+		File file = new File(relatorio);
 
-		Boolean fileExist = new CheckFile().FileExists(file);
+		try {
 
-		if (fileExist) {
+			file.createNewFile();
 
-			return (new File(file));
+			Boolean fileExist = new CheckFile().FileExists(relatorio);
+
+			if (fileExist) {
+
+				return (file);
+			}
+
+		} catch (IOException ioe) {
+			
+			System.out.println(String.format("public class Relatorios getRelatorioFile [%s] [%s] %s\n", file.getAbsolutePath(), ioe.getMessage()));
 		}
 
 		return (null);

@@ -6,14 +6,16 @@
 # ImprimePonto
 Projeto Imprime Folha de Ponto para Funcionários
 
-![ImprimePonto.png](https://i.imgur.com/0T4cnUH.png)
+![ImprimePontoWindows.png](https://i.imgur.com/Dt7dHFU.png)
+
+![ImprimePontoLinux.png](https://i.imgur.com/VyoxBin.png)
 
 # Downloads
-| Aplicativo          | Tipo   | Versao  | Link                                                                                                            |
-| ------------------- | ------ | ------- | ----------------------------------------------------------------------------------------------------------------|
-| ImprimePontoRelease | exe    | 1.0.0.5 | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.5/ImprimePontoRelease1.0.0.5.exe)|
-| ImprimePontoRelease | zip    | 1.0.0.5 | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.5/ImprimePontoRelease1.0.0.5.zip)|
-| ImprimePontoRelease | rar    | 1.0.0.5 | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.5/ImprimePontoRelease1.0.0.5.rar)|
+| Aplicativo          | Release | Extenção | Link                                                                                                            |
+| ------------------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| ImprimePonto        | 1.0.0.6 | exe      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.6/ImprimePontoRelease1.0.0.6.exe)|
+| ImprimePonto        | 1.0.0.6 | zip      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.6/ImprimePontoRelease1.0.0.6.zip)|
+| ImprimePonto        | 1.0.0.6 | rar      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.6/ImprimePontoRelease1.0.0.6.rar)|
 
 # Características
 *   Relatório com pre-Visualizações
@@ -22,8 +24,7 @@ Projeto Imprime Folha de Ponto para Funcionários
 *   Relatórios de Funções, Empresas e Funcionários
 *   Relatório Exportando para PDF, HTML, XML, XLS, XLSX
 
-![ImprimePontoPessoa](https://i.imgur.com/s1vt22R.png)
-
+![ImprimePontoRelatorioPessoa](https://i.imgur.com/TGf3dkc.png)
 
 # Requerimentos (Java Libs)
 *   ecj-4.4.2.jar.................: Eclipse JDT Core Batch Compiler
@@ -48,7 +49,7 @@ Ementa: RECURSO DE REVISTA - PRELIMINAR DE NULIDADE DO ACÓRDÃO REGIONAL POR NE
 *   Notepad++ 7.5.5
 *   SQLiteStudio 3.1.1
 *   Jaspersoft Studio 6.6.0
-*   Eclipse Java EE IDE Photon Release (4.8.0)
+*   Eclipse Java EE IDE Photon Release 4.8.0
 
 # Licença
 -------
