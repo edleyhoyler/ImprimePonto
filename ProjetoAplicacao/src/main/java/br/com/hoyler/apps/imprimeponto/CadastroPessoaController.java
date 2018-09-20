@@ -2,10 +2,19 @@ package br.com.hoyler.apps.imprimeponto;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+
 import org.jvfx.viewer.JasperViewerFX;
+
+import br.com.hoyler.apps.database.sqlite.Pessoas;
+import br.com.hoyler.apps.database.sqlite.PessoasFabricaDAO;
+import br.com.hoyler.apps.imagens.ImagensGetSet;
+import br.com.hoyler.apps.tools.CriarJanelaSalvarPDF;
+import br.com.hoyler.apps.tools.CriarMensagens;
+import br.com.hoyler.apps.tools.HyperlinkCreate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,12 +41,6 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.type.OrientationEnum;
 import net.sf.jasperreports.engine.util.JRLoader;
-import br.com.hoyler.apps.database.sqlite.Pessoas;
-import br.com.hoyler.apps.database.sqlite.PessoasFabricaDAO;
-import br.com.hoyler.apps.imagens.ImagensGetSet;
-import br.com.hoyler.apps.tools.CriarJanelaSalvarPDF;
-import br.com.hoyler.apps.tools.CriarMensagens;
-import br.com.hoyler.apps.tools.HyperlinkCreate;
 
 public class CadastroPessoaController {
 
@@ -50,7 +53,7 @@ public class CadastroPessoaController {
 	String CONFIRMAR = ("Confirmar");
 
 	String CadastroAntigo = "";
-
+	Pessoas pessoas = new Pessoas();
 	ImagensGetSet imagensGetSet = new ImagensGetSet();
 	CadastroPessoa cadastroPessoa = new CadastroPessoa();
 	PessoasFabricaDAO pessoasFabricaDAO = new PessoasFabricaDAO();
@@ -188,14 +191,15 @@ public class CadastroPessoaController {
 
 		if (BOTAO.equals(ATUALIZAR)) {
 
-			String NOME = TextFieldNomeID.getText().toString();
-			String CTPS = TextFieldCTPSID.getText().toString();
-			String ADMISSAO = new CadastroPessoa().getDatePickerValue(DatePickerAdmissaoID);
-			String FUNCAO = new CadastroPessoa().getComboBoxValue(ComboBoxFuncaoID);
-			String EMPRESA = new CadastroPessoa().getComboBoxValue(ComboBoxEmpresaID);
+			pessoas.setNome(TextFieldNomeID.getText().toString());
+			pessoas.setCtps(TextFieldCTPSID.getText().toString());
+			pessoas.setAdmissao(cadastroPessoa.getDatePickerValue(DatePickerAdmissaoID));
+			pessoas.setFuncao(cadastroPessoa.getComboBoxValue(ComboBoxFuncaoID));
+			pessoas.setEmpresa(cadastroPessoa.getComboBoxValue(ComboBoxEmpresaID));
 
-			if (CODIGO.length() >= 1 & NOME.length() >= 1 & CTPS.length() >= 1 & ADMISSAO.length() >= 1
-					& FUNCAO.length() >= 1 & EMPRESA.length() >= 1) {
+			if (CODIGO.length() >= 1 & pessoas.getNome().length() >= 1 & pessoas.getCtps().length() >= 1
+					& pessoas.getAdmissao().length() >= 1 & pessoas.getFuncao().length() >= 1
+					& pessoas.getEmpresa().length() >= 1) {
 
 				String msg = ("Deseja Realmente Atualizar?");
 				Boolean resportaPergunta = new CriarMensagens().CriarMsgAlertaPerguntasSIMouNAO(msg);
@@ -228,8 +232,7 @@ public class CadastroPessoaController {
 
 					new CadastroEmpresa().setFocusTextField(TextFieldListarID);
 
-					retornoBool = new PessoasFabricaDAO().UpdateEmpresasDados(CadastroAntigo, NOME, CTPS, ADMISSAO,
-							FUNCAO, EMPRESA);
+					retornoBool = new PessoasFabricaDAO().updateNome(CadastroAntigo, pessoas);
 
 					new CadastroPessoa().TextFieldListarID_setOnKeyReleased(TextFieldListarID, TableViewColaboradorID);
 
@@ -238,8 +241,14 @@ public class CadastroPessoaController {
 					if (retornoBool == false) {
 						new CriarMensagens().MensagemErro("Erro ao Atualizar", "Não Foi Possivel Atualizar");
 					} else {
-						new CriarMensagens().MensagemInformacoes("Pessoa Atualizada com SUCESSO",
-								NOME + "\n" + CTPS + "\n" + ADMISSAO + "\n" + FUNCAO + "\n" + EMPRESA);
+
+						msg = (pessoas.getNome() + "\n");
+						msg += (pessoas.getCtps() + "\n");
+						msg += (pessoas.getAdmissao() + "\n");
+						msg += (pessoas.getFuncao() + "\n");
+						msg += (pessoas.getEmpresa() + "\n");
+
+						new CriarMensagens().MensagemInformacoes("Pessoa Atualizada com SUCESSO", msg);
 
 					}
 
@@ -273,7 +282,7 @@ public class CadastroPessoaController {
 
 					TextFieldListarID.setText("");
 
-					retornoBool = new PessoasFabricaDAO().DeletarCodigosTabelaFuncoes(CODIGO_ID);
+					retornoBool = new PessoasFabricaDAO().deletarCodigo(CODIGO_ID);
 
 					new CadastroPessoa().TextFieldListarID_setOnKeyReleased(TextFieldListarID, TableViewColaboradorID);
 
@@ -319,21 +328,21 @@ public class CadastroPessoaController {
 
 		if (BOTAO.equals(SALVAR)) {
 
-			String NOME = TextFieldNomeID.getText().toString();
-			String CTPS = TextFieldCTPSID.getText().toString();
-			String ADMISSAO = new CadastroPessoa().getDatePickerValue(DatePickerAdmissaoID);
-			String FUNCAO = new CadastroPessoa().getComboBoxValue(ComboBoxFuncaoID);
-			String EMPRESA = new CadastroPessoa().getComboBoxValue(ComboBoxEmpresaID);
-
-			if (NOME.length() >= 1 & CTPS.length() >= 1 & ADMISSAO.length() >= 1 & FUNCAO.length() >= 1
-					& EMPRESA.length() >= 1) {
+			pessoas.setNome(TextFieldNomeID.getText().toString());
+			pessoas.setCtps(TextFieldCTPSID.getText().toString());
+			pessoas.setAdmissao(cadastroPessoa.getDatePickerValue(DatePickerAdmissaoID));
+			pessoas.setFuncao(cadastroPessoa.getComboBoxValue(ComboBoxFuncaoID));
+			pessoas.setEmpresa(cadastroPessoa.getComboBoxValue(ComboBoxEmpresaID));
+			
+			if (pessoas.getNome().length() >= 1 & pessoas.getCtps().length() >= 1 & pessoas.getAdmissao().length() >= 1 & pessoas.getFuncao().length() >= 1
+					& pessoas.getEmpresa().length() >= 1) {
 
 				boolean retornoBool = true;
 
 				ButtonAlterarID.setText(ALTERAR);
 				ButtonDeletarID.setText(DELETAR);
 
-				retornoBool = new PessoasFabricaDAO().SalvarPessoasDados(NOME, CTPS, ADMISSAO, FUNCAO, EMPRESA);
+				retornoBool = new PessoasFabricaDAO().salvarDados(pessoas);
 
 				TextFieldCodigoID.setText("");
 				TextFieldNomeID.setText("");
@@ -364,7 +373,11 @@ public class CadastroPessoaController {
 					new CriarMensagens().MensagemErro("Erro ao Salvar", "Não Foi Possivel Salvar");
 				} else {
 					new CriarMensagens().MensagemInformacoes("Pessoa Salvo com SUCESSO",
-							NOME + "\n" + CTPS + "\n" + ADMISSAO + "\n" + FUNCAO + "\n" + EMPRESA);
+															pessoas.getNome() + "\n" + 
+															pessoas.getCtps() + "\n" + 
+															pessoas.getAdmissao() + "\n" + 
+															pessoas.getFuncao() + "\n" + 
+															pessoas.getEmpresa());
 
 				}
 
@@ -770,13 +783,15 @@ public class CadastroPessoaController {
 		imagensGetSet.setImageButtons(ButtonImprimirID);
 		imagensGetSet.setImageButtons(ButtonVisualizarID);
 		imagensGetSet.setImageButtons(ButtonSairID);
-
-		TableColumnCodigoID.setCellValueFactory(new PropertyValueFactory<Pessoas, Integer>("CODIGO"));
-		TableColumnNomeID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>("NOME"));
-		TableColumnCTPSID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>("CTPS"));
-		TableColumnAdmissaoID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>("ADMISSAO"));
-		TableColumnFuncaoID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>("FUNCAO"));
-		TableColumnEmpresaID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>("EMPRESA"));
+		
+		Field[] fields = Pessoas.class.getDeclaredFields();
+		
+		TableColumnCodigoID.setCellValueFactory(new PropertyValueFactory<Pessoas, Integer>(fields[0].getName()));
+		TableColumnNomeID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>(fields[1].getName()));
+		TableColumnCTPSID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>(fields[2].getName()));
+		TableColumnAdmissaoID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>(fields[3].getName()));
+		TableColumnFuncaoID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>(fields[4].getName()));
+		TableColumnEmpresaID.setCellValueFactory(new PropertyValueFactory<Pessoas, String>(fields[5].getName()));
 
 		cadastroPessoa.setOpacityTextFieldLeitura(TextFieldCodigoID);
 		cadastroPessoa.setOpacityTextFieldLeitura(TextFieldNomeID);

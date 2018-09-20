@@ -1,19 +1,22 @@
 package br.com.hoyler.apps.imagens;
 
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class ImagensGetSet {
 
-	private final String CAMINHO_IMAGENS = ("/br/com/hoyler/apps/imagens/");
+	private final String caminhoImagens = ("/br/com/hoyler/apps/imagens/");
 
+	
+	
+	
 	private String getStringExitPng() {
 
 		final String file = "exit.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -23,7 +26,7 @@ public class ImagensGetSet {
 
 		final String file = "pdf.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -33,7 +36,7 @@ public class ImagensGetSet {
 
 		final String file = "print.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -43,7 +46,7 @@ public class ImagensGetSet {
 
 		final String file = "view.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -53,7 +56,7 @@ public class ImagensGetSet {
 
 		final String file = "background.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -63,7 +66,7 @@ public class ImagensGetSet {
 
 		final String file = "empresa.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -73,7 +76,7 @@ public class ImagensGetSet {
 
 		final String file = "funcao.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -83,7 +86,7 @@ public class ImagensGetSet {
 
 		final String file = "pessoa.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 
@@ -93,7 +96,7 @@ public class ImagensGetSet {
 
 		final String file = "logo.png";
 
-		final String patch_img = String.format("%s%s", CAMINHO_IMAGENS, file);
+		final String patch_img = String.format("%s%s", caminhoImagens, file);
 
 		return (patch_img);
 

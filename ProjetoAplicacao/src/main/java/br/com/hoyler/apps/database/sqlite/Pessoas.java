@@ -2,58 +2,61 @@ package br.com.hoyler.apps.database.sqlite;
 
 public class Pessoas {
 
-	private int CODIGO;
-	private String NOME;
-	private String CTPS;
-	private String ADMISSAO;
-	private String FUNCAO;
-	private String EMPRESA;
+	public Pessoas() {};
+	
+	private int codigo;
+	private String nome;
+	private String ctps;
+	private String admissao;
+	private String funcao;
+	private String empresa;
 
-	public int getCODIGO() {
-		return CODIGO;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setCODIGO(int cODIGO) {
-		CODIGO = cODIGO;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
-	public String getNOME() {
-		return NOME;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNOME(String nOME) {
-		NOME = nOME;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getCTPS() {
-		return CTPS;
+	public String getCtps() {
+		return ctps;
 	}
 
-	public void setCTPS(String cTPS) {
-		CTPS = cTPS;
+	public void setCtps(String ctps) {
+		this.ctps = ctps;
 	}
 
-	public String getADMISSAO() {
-		return ADMISSAO;
+	public String getAdmissao() {
+		return admissao;
 	}
 
-	public void setADMISSAO(String aDMISSAO) {
-		ADMISSAO = aDMISSAO;
+	public void setAdmissao(String admissao) {
+		this.admissao = admissao;
 	}
 
-	public String getFUNCAO() {
-		return FUNCAO;
+	public String getFuncao() {
+		return funcao;
 	}
 
-	public void setFUNCAO(String fUNCAO) {
-		FUNCAO = fUNCAO;
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
 	}
 
-	public String getEMPRESA() {
-		return EMPRESA;
+	public String getEmpresa() {
+		return empresa;
 	}
 
-	public void setEMPRESA(String eMPRESA) {
-		EMPRESA = eMPRESA;
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
 	}
+
 }

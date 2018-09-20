@@ -7,11 +7,17 @@ import br.com.hoyler.apps.tools.CheckFile;
 
 public class Relatorios {
 
-	private String getRelatorio(String relatorio) {
+	private final String relatorioCaminho           = ("ImprimePonto/Relatorio/");
+	private final String relatorioImprimeFuncoes    = ("ImprimeFuncoes.jasper");
+	private final String relatorioImprimeEmpresas   = ("ImprimeEmpresas.jasper");
+	private final String relatorioImprimePontoMes28 = ("ImprimePontoMes28.jasper");
+	private final String relatorioImprimePontoMes29 = ("ImprimePontoMes29.jasper");
+	private final String relatorioImprimePontoMes30 = ("ImprimePontoMes30.jasper");
+	private final String relatorioImprimePontoMes31 = ("ImprimePontoMes31.jasper");
 
-		final String CAMINHO_PADRAO = ("ImprimePonto/Relatorio/");
+	private String getRelatorioString(String relatorio) {
 
-		final String returnString = String.format("%s%s", CAMINHO_PADRAO, relatorio);
+		final String returnString = String.format("%s%s", relatorioCaminho, relatorio);
 
 		return (returnString);
 	}
@@ -32,8 +38,9 @@ public class Relatorios {
 			}
 
 		} catch (IOException ioe) {
-			
-			System.out.println(String.format("public class Relatorios getRelatorioFile [%s] [%s] %s\n", file.getAbsolutePath(), ioe.getMessage()));
+
+			System.out.println(String.format("public class Relatorios getRelatorioFile [%s] [%s] %s\n",
+					file.getAbsolutePath(), ioe.getMessage()));
 		}
 
 		return (null);
@@ -48,32 +55,42 @@ public class Relatorios {
 		switch (totalDiasMES) {
 		case (28): {
 
-			nomeArquivoRelatorio = ("ImprimePontoMes28.jasper");
+			nomeArquivoRelatorio = relatorioImprimePontoMes28;
 
 			break;
 		}
 		case (29): {
 
-			nomeArquivoRelatorio = ("ImprimePontoMes29.jasper");
+			nomeArquivoRelatorio = relatorioImprimePontoMes29;
 
 			break;
 		}
 		case (30): {
 
-			nomeArquivoRelatorio = ("ImprimePontoMes30.jasper");
+			nomeArquivoRelatorio = relatorioImprimePontoMes30;
 
 			break;
 		}
 
 		default: {
 
-			nomeArquivoRelatorio = ("ImprimePontoMes31.jasper");
+			nomeArquivoRelatorio = relatorioImprimePontoMes31;
 
 			break;
 		}
 		}
 
-		return (getRelatorio(nomeArquivoRelatorio));
+		return (getRelatorioString(nomeArquivoRelatorio));
+	}
+
+	private String getImprimeEmpresas() {
+
+		return (getRelatorioString(relatorioImprimeEmpresas));
+	}
+
+	private String getImprimeFuncoes() {
+
+		return (getRelatorioString(relatorioImprimeFuncoes));
 	}
 
 	public File getRelatorioImprimePontoMeses() {
@@ -81,24 +98,13 @@ public class Relatorios {
 		return (getRelatorioFile(getImprimePontoMeses()));
 	}
 
-	private String getImprimeEmpresas() {
-
-		return (getRelatorio("ImprimeEmpresas.jasper"));
-	}
-
 	public File getRelatorioImprimeEmpresas() {
 
 		return (getRelatorioFile(getImprimeEmpresas()));
-	}
-
-	private String getImprimeFuncoes() {
-
-		return (getRelatorio("ImprimeFuncoes.jasper"));
 	}
 
 	public File getRelatorioImprimeFuncoes() {
 
 		return (getRelatorioFile(getImprimeFuncoes()));
 	}
-
 }

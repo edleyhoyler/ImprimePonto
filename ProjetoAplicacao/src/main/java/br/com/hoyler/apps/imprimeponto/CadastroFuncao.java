@@ -1,12 +1,12 @@
 package br.com.hoyler.apps.imprimeponto;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import br.com.hoyler.apps.database.sqlite.Funcoes;
 import br.com.hoyler.apps.database.sqlite.FuncoesFabricaDAO;
+import javafx.event.EventHandler;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class CadastroFuncao {
 
@@ -28,7 +28,7 @@ public class CadastroFuncao {
 
 		String Consulta = textField.getText().toString();
 
-		tableView.setItems(new FuncoesFabricaDAO().ListarFuncoesNomes(Consulta));
+		tableView.setItems(new FuncoesFabricaDAO().listarDadosOL(Consulta));
 	}
 
 	public void SelecionarLinhaTableView(TextField codigo, TextField nome, TableView<Funcoes> tableView) {
@@ -38,8 +38,8 @@ public class CadastroFuncao {
 		if (funcoes == null) {
 			System.out.println("DADOS NULL");
 		} else {
-			codigo.setText(Integer.toString(funcoes.getCODIGO()));
-			nome.setText(funcoes.getNOME());
+			codigo.setText(Integer.toString(funcoes.getCodigo()));
+			nome.setText(funcoes.getNome());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class CadastroFuncao {
 
 				String Consulta = textField.getText().toString();
 
-				tableView.setItems(new FuncoesFabricaDAO().ListarFuncoesNomes(Consulta));
+				tableView.setItems(new FuncoesFabricaDAO().listarDadosOL(Consulta));
 			}
 		});
 	}

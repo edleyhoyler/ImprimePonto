@@ -13,9 +13,9 @@ Projeto Imprime Folha de Ponto para Funcionários
 # Downloads
 | Aplicativo          | Release | Extenção | Link                                                                                                            |
 | ------------------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| ImprimePonto        | 1.0.0.6 | exe      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.6/ImprimePontoRelease1.0.0.6.exe)|
-| ImprimePonto        | 1.0.0.6 | zip      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.6/ImprimePontoRelease1.0.0.6.zip)|
-| ImprimePonto        | 1.0.0.6 | rar      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.6/ImprimePontoRelease1.0.0.6.rar)|
+| ImprimePonto        | 1.0.0.7 | exe      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.7/ImprimePontoRelease1.0.0.7.exe)|
+| ImprimePonto        | 1.0.0.7 | zip      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.7/ImprimePontoRelease1.0.0.7.zip)|
+| ImprimePonto        | 1.0.0.7 | rar      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.7/ImprimePontoRelease1.0.0.7.rar)|
 
 # Características
 *   Relatório com pre-Visualizações

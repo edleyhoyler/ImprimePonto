@@ -1,24 +1,24 @@
 package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.DriverManager;
+
 import org.sqlite.SQLiteConfig;
-import java.sql.PreparedStatement;
+
 import br.com.hoyler.apps.tools.CheckFile;
 
 public class Database {
 
-	public Database() {
-		
-	}
+	public Database(){}
 
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
 	private final String BANCO_DE_DADOS_ARQUIVO = ("ImprimePonto.s3db");
 	private final String BANCO_DE_DADOS_CAMINHO = ("ImprimePonto/Database/");
-
+	
 	public final String TABELA_FUNCOES = ("Funcoes");
 	public final String TABELA_EMPRESAS = ("Empresas");
 	public final String TABELA_PESSOAS = ("Pessoas");
@@ -88,14 +88,11 @@ public class Database {
 						"public class br.com.hoyler.apps.database.sqlite CriarConexaoDB DB_URL: [%s] [SQLException TRY ERRO]",
 						DatabaseURL));
 			}
-
 		} else {
 			System.out.println(String.format(
 					"public class br.com.hoyler.apps.database.sqlite CriarConexaoDB BANCO_EXISTE: [%s] [ELSE ERRO]",
 					ARQUIVO_EXISTE.toString()));
-
 		}
-
 	}
 
 	public void ConexaoDBClose() throws SQLException {
@@ -171,7 +168,6 @@ public class Database {
 					"public class br.com.hoyler.apps.database.sqlite DeletarNomes TABELA: [%s] - CAMPO: [%s] - VALOR: [%s] [SQLException TRY ERRO]\n%s",
 					tablela, campo, nome));
 		}
-
 		return returnBool;
 	}
 
@@ -182,17 +178,16 @@ public class Database {
 		this.CriarConexaoDB();
 
 		try {
-
+			 
 			preparedStatement = connection.prepareStatement(scriptSQL);
-
+		 
 			returnResultSet = preparedStatement.executeQuery();
 
-		} catch (SQLException e) {
+		} catch (SQLException sqlEx) {
 
 			System.out.println(String.format(
-					"public class br.com.hoyler.apps.database.sqlite ExecutarSQL SQL: [%s] [SQLException TRY ERRO]", scriptSQL));
+					"public class br.com.hoyler.apps.database.sqlite ExecutarSQL SQL: %s [SQLException TRY ERRO] %s", scriptSQL, sqlEx.getMessage()));
 		}
-
 		return (returnResultSet);
 	}
 }

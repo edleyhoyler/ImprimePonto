@@ -1,8 +1,8 @@
 package br.com.hoyler.apps.imprimeponto;
 
+import br.com.hoyler.apps.database.sqlite.Empresas;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import br.com.hoyler.apps.database.sqlite.Empresas;
 
 public class CadastroEmpresa {
 
@@ -22,7 +22,7 @@ public class CadastroEmpresa {
 
 		String Consulta = textField.getText().toString();
 
-		tableView.setItems(new br.com.hoyler.apps.database.sqlite.EmpresasFabricaDAO().ListarEmpresasNomes(Consulta));
+		tableView.setItems(new br.com.hoyler.apps.database.sqlite.EmpresasFabricaDAO().listarDadosOL(Consulta));
 
 	}
 
@@ -34,10 +34,10 @@ public class CadastroEmpresa {
 		if (empresas == null) {
 			System.out.println("DADOS NULL");
 		} else {
-			codigo.setText(Integer.toString(empresas.getCODIGO()));
-			nome.setText(empresas.getNOME());
-			cnpj.setText(empresas.getCPNJ());
-			endereco.setText(empresas.getENDERECO());
+			codigo.setText(Integer.toString(empresas.getCodigo()));
+			nome.setText(empresas.getNome());
+			cnpj.setText(empresas.getCnpj());
+			endereco.setText(empresas.getEndereco());
 		}
 	}
 

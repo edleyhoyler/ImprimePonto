@@ -2,6 +2,7 @@ package br.com.hoyler.apps.imprimeponto;
  
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import br.com.hoyler.apps.database.sqlite.Pessoas;
 import br.com.hoyler.apps.database.sqlite.PessoasFabricaDAO;
 import javafx.scene.control.ComboBox;
@@ -168,21 +169,21 @@ public class CadastroPessoa {
 			
 		} else {
 			
-			codigo.setText(Integer.toString(pessoas.getCODIGO()));
+			codigo.setText(Integer.toString(pessoas.getCodigo()));
 			
-			nome.setText(pessoas.getNOME());
+			nome.setText(pessoas.getNome());
 			
-			ctps.setText(pessoas.getCTPS());
+			ctps.setText(pessoas.getCtps());
 			try {
-				setDatePickerValue(admissao, pessoas.getADMISSAO());
+				setDatePickerValue(admissao, pessoas.getAdmissao());
 			} catch (Exception e) {
 				System.out.println(String.format("public class CadastroPessoa SelecionarLinhaTableView ERRO: %s", e.getMessage()));
 			}
 		
 			
-			funcao.setValue(pessoas.getFUNCAO());
+			funcao.setValue(pessoas.getFuncao());
 			
-			empresa.setValue(pessoas.getEMPRESA());
+			empresa.setValue(pessoas.getEmpresa());
 
 		}
 	}

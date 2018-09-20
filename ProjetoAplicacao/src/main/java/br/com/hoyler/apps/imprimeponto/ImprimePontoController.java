@@ -2,18 +2,19 @@ package br.com.hoyler.apps.imprimeponto;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 import br.com.hoyler.apps.imagens.ImagensGetSet;
 import br.com.hoyler.apps.tools.CriarMensagens;
 import br.com.hoyler.apps.tools.JanelasCSSEnum;
 import br.com.hoyler.apps.tools.JanelasFXMLEnum;
-
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ImprimePontoController {
 
@@ -53,6 +54,11 @@ public class ImprimePontoController {
     @FXML
     private ImageView ImageViewEmpresaID;
 
+    @FXML
+    void ButtonPessoaID_OnAction(ActionEvent event) {
+
+    }
+    
 	@FXML
 	void ImageViewEmpresaID_OnMousePressed(MouseEvent event) {
 		ImageViewEmpresaID.setFitHeight(100);
@@ -133,12 +139,16 @@ public class ImprimePontoController {
 	}
 
 	private void setImagens() {
-		
+		 
 		ImagensGetSet imagensGetSet = new ImagensGetSet();
+		
 		imagensGetSet.setImageImageView(ImageViewBackgroundID);
 		imagensGetSet.setImageImageView(ImageViewPessoaID);
 		imagensGetSet.setImageImageView(ImageViewFuncaoID);
 		imagensGetSet.setImageImageView(ImageViewEmpresaID);
-
+		
+		Tooltip.install(ImageViewPessoaID, new Tooltip("Cadastro de Pessoas"));
+		Tooltip.install(ImageViewFuncaoID, new Tooltip("Cadastro de Funçoes"));
+		Tooltip.install(ImageViewEmpresaID, new Tooltip("Cadastro de Empresas"));
 	}
 }

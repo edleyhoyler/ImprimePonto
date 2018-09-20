@@ -2,41 +2,38 @@ package br.com.hoyler.apps.database.sqlite;
 
 public class Empresas {
 
-	private int CODIGO;
-	private String NOME;
-	private String CPNJ;
-	private String ENDERECO;
-
-	public int getCODIGO() {
-		return CODIGO;
+	public Empresas() {}
+	
+	private int codigo;
+	private String nome;
+	private String cnpj;
+	private String endereco;
+	
+	public int getCodigo() {
+		return codigo;
 	}
-
-	public void setCODIGO(int cODIGO) {
-		CODIGO = cODIGO;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
-
-	public String getNOME() {
-		return NOME;
+	public String getNome() {
+		return nome;
 	}
-
-	public void setNOME(String nOME) {
-		NOME = nOME;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-
-	public String getCPNJ() {
-		return CPNJ;
+	public String getCnpj() {
+		return cnpj;
 	}
-
-	public void setCPNJ(String cPNJ) {
-		CPNJ = cPNJ;
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
-
-	public String getENDERECO() {
-		return ENDERECO;
+	public String getEndereco() {
+		return endereco;
 	}
-
-	public void setENDERECO(String eNDERECO) {
-		ENDERECO = eNDERECO;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
+	
+ 
 
 }

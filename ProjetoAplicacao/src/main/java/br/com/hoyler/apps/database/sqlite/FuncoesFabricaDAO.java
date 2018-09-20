@@ -2,213 +2,50 @@ package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class FuncoesFabricaDAO {
+
 	Database database = new Database();
 
-	public Boolean DeletarCodigosTabelaFuncoes(int codigo) {
+	public int getCodigoViaNome(String nome) {
 
-		Boolean retornoBool = false;
-
-		retornoBool = database.DeletarCodigos(database.TABELA_FUNCOES, database.CAMPO_CODIGO, codigo);
-
-		return retornoBool;
+		return (getCodigoViaNomeFuncoes(nome));
 	}
 
-	public Boolean DeletarNomeTabelaFuncoess(String nome) {
+	public boolean deletarCodigos(int codigo) {
 
-		Boolean retornoBool = false;
-
-		retornoBool = database.DeletarNomes(database.TABELA_EMPRESAS, database.CAMPO_CODIGO, nome);
-
-		return retornoBool;
+		return (database.DeletarCodigos(database.TABELA_FUNCOES, database.CAMPO_CODIGO, codigo));
 	}
 
-	public Boolean UpdateFuncoesDados(String valorNomeAntigo, String valorNomeNovo) {
+	public boolean deletarNome(String nome) {
 
-		Boolean retornoBool = false;
-
-		Funcoes funcoes = new Funcoes();
-		funcoes.setNOME(valorNomeNovo);
-
-		retornoBool = UpdateFuncoesDados(funcoes, valorNomeAntigo);
-
-		return retornoBool;
+		return (database.DeletarNomes(database.TABELA_EMPRESAS, database.CAMPO_CODIGO, nome));
 	}
 
-	private Boolean UpdateFuncoesDados(Funcoes funcoes, String valorNomeAntigo) {
+	public boolean updateNome(String valorNomeAntigo, Funcoes funcoes) {
 
-		Boolean retornoBool = false;
-
-		int LinhasAfetadas = -9999;
-
-		String NOME = funcoes.getNOME();
-
-		String codigoSQL = ("UPDATE [Funcoes] SET [NOME] = (?) WHERE [NOME] = (?);");
-		try {
-			database.CriarConexaoDB();
-
-			database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
-
-			database.getPreparedStatement().setString(1, NOME);
-			database.getPreparedStatement().setString(2, valorNomeAntigo);
-
-			LinhasAfetadas = database.getPreparedStatement().executeUpdate();
-
-			System.out.println(String.format(
-					"public class FuncoesFabricaDAO UpdateFuncoesDados TABELA: [Funcoes] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - SALVAR: [%s] - [OK]",
-					valorNomeAntigo, NOME, LinhasAfetadas));
-
-			retornoBool = true;
-
-		} catch (SQLException ex) {
-
-			System.out.println(String.format(
-					"public class FuncoesFabricaDAO UpdateFuncoesDados TABELA: [Funcoes] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [TRY ERRO]\n%s",
-					valorNomeAntigo, NOME, LinhasAfetadas, ex.getMessage()));
-		}
-
-		return retornoBool;
+		return (updateNomeFuncoes(valorNomeAntigo, funcoes));
 	}
 
-	public ObservableList<Funcoes> ListarFuncoesNomes(String nome) {
+	public boolean salvarDados(Funcoes funcoes) {
 
-		ObservableList<Funcoes> retornoObservableList = ListarNomes(nome);
-
-		return (retornoObservableList);
+		return (salvarDadosFuncoes(funcoes));
 	}
 
-	private ObservableList<Funcoes> ListarNomes(String nome) {
+	public ResultSet listarDados(String nome) {
 
-		ObservableList<Funcoes> retornoObservableList = FXCollections.observableArrayList();
-
-		int LinhasAfetadas = -9999;
-
-		String Listar = ("SELECT * FROM [Funcoes] WHERE [NOME] like ?;");
-		String Contar = ("SELECT Count(*) AS [COUNT] FROM [Funcoes] WHERE [NOME] like ?;");
-
-		try {
-
-			database.CriarConexaoDB();
-
-			database.setPreparedStatement(database.getConnection().prepareStatement(Contar));
-
-			database.getPreparedStatement().setString(1, ('%' + nome + '%'));
-
-			ResultSet resultSet = database.getPreparedStatement().executeQuery();
-
-			while (resultSet.next()) {
-				LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
-			}
-
-			if (LinhasAfetadas >= 1) {
-
-				database.setPreparedStatement(database.getConnection().prepareStatement(Listar));
-
-				database.getPreparedStatement().setString(1, ('%' + nome + '%'));
-
-				resultSet = database.getPreparedStatement().executeQuery();
-
-				while (resultSet.next()) {
-
-					Integer CODIGO = resultSet.getInt(database.CAMPO_CODIGO);
-					String NOME = resultSet.getString(database.CAMPO_NOME);
-
-					Funcoes funcoes = new Funcoes();
-					funcoes.setCODIGO(CODIGO);
-					funcoes.setNOME(NOME);
-
-					retornoObservableList.add(funcoes);
-				}
-
-				System.out.println(String.format(
-						"public class FuncoesFabricaDAO ListarNomes TABELA: [Funcoes] - NOME: [%s] - TOTAL: [%s]", nome,
-						Integer.toString(LinhasAfetadas)));
-
-			} else {
-
-				Funcoes funcoes = new Funcoes();
-				funcoes.setCODIGO(0);
-				funcoes.setNOME("...: SEM DADOS :...");
-
-				retornoObservableList.add(funcoes);
-				
-				System.out.println(String.format(
-						"public class FuncoesFabricaDAO ListarNomes TABELA: [Funcoes] - NOME: [%s] - TOTAL: [%s]", nome,
-						Integer.toString(LinhasAfetadas)));
-
-			}
-
-		} catch (SQLException e) {
-			
-			Funcoes funcoes = new Funcoes();
-			funcoes.setCODIGO(0);
-			funcoes.setNOME("...: SEM DADOS :...");
-
-			retornoObservableList.add(funcoes);
-			
-			System.out.println(String.format(
-					"public class FuncoesFabricaDAO ListarNomes TABELA: [Funcoes] - NOME: [%s] - [SQLException TRY ERRO]: [%s]",
-					nome, Integer.toString(LinhasAfetadas)));
-
-		}
-
-		return (retornoObservableList);
-
+		return (listarDadosFuncoes(nome));
 	}
 
-	public Boolean SalvarFuncoesDados(String valorNomeNovo) {
+	public ObservableList<Funcoes> listarDadosOL(String nome) {
 
-		Boolean retornoBool = false;
-
-		Funcoes funcoes = new Funcoes();
-		funcoes.setNOME(valorNomeNovo);
-
-		retornoBool = SalvarFuncoesDados(funcoes);
-
-		return retornoBool;
+		return (listarDadosOLFuncoes(nome));
 	}
 
-	private Boolean SalvarFuncoesDados(Funcoes funcoes) {
-
-		Boolean retornoBool = false;
-
-		int LinhasAfetadas = -9999;
-
-		String NOME = funcoes.getNOME();
-
-		String codigoSQL = ("INSERT INTO [Funcoes] (NOME) VALUES (?);");
-
-		try {
-
-			database.CriarConexaoDB();
-
-			database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
-
-			database.getPreparedStatement().setString(1, NOME);
-
-			LinhasAfetadas = database.getPreparedStatement().executeUpdate();
-
-			System.out.println(
-					String.format("public class FuncoesFabricaDAO TABELA: [Funcoes] - NOME: [%s] - SALVAR: [%s] [OK]",
-							NOME, LinhasAfetadas));
-
-			retornoBool = true;
-
-		} catch (SQLException ex) {
-
-			System.out.println(String.format(
-					"public class FuncoesFabricaDAO TABELA: [Funcoes] - NOME: [%s] - SALVAR: [%s] [TRY ERRO]\n%s", NOME,
-					LinhasAfetadas, ex.getMessage()));
-
-		}
-
-		return retornoBool;
-	}
-
-	public int getCodigoPeloNome(String nome) {
+	private int getCodigoViaNomeFuncoes(String nome) {
 
 		int CODIGO_RETORNO = -9999;
 
@@ -272,7 +109,75 @@ public class FuncoesFabricaDAO {
 		return CODIGO_RETORNO;
 	}
 
-	public ResultSet ListarFuncoes(String nome) {
+	private boolean updateNomeFuncoes(String valorNomeAntigo, Funcoes funcoes) {
+
+		Boolean retornoBool = false;
+
+		int LinhasAfetadas = -9999;
+
+		String codigoSQL = ("UPDATE [Funcoes] SET [NOME] = (?) WHERE [NOME] = (?);");
+		try {
+			database.CriarConexaoDB();
+
+			database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
+
+			database.getPreparedStatement().setString(1, funcoes.getNome());
+			database.getPreparedStatement().setString(2, valorNomeAntigo);
+
+			LinhasAfetadas = database.getPreparedStatement().executeUpdate();
+
+			System.out.println(String.format(
+					"public class FuncoesFabricaDAO UpdateFuncoesDados TABELA: [Funcoes] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - SALVAR: [%s] - [OK]",
+					valorNomeAntigo, funcoes.getNome(), LinhasAfetadas));
+
+			retornoBool = true;
+
+		} catch (SQLException ex) {
+
+			System.out.println(String.format(
+					"public class FuncoesFabricaDAO UpdateFuncoesDados TABELA: [Funcoes] - CAMPO: [NOME] - VALOR ANTIGO: [%s] - VALOR NOVO: [%s] - CNPJ: [%s] - ENDERECO: [%s] SALVAR: [%s] - [TRY ERRO]\n%s",
+					valorNomeAntigo, funcoes.getNome(), LinhasAfetadas, ex.getMessage()));
+		}
+
+		return retornoBool;
+	}
+
+	private boolean salvarDadosFuncoes(Funcoes funcoes) {
+
+		Boolean retornoBool = false;
+
+		int LinhasAfetadas = -9999;
+
+		String codigoSQL = ("INSERT INTO [Funcoes] (NOME) VALUES (?);");
+
+		try {
+
+			database.CriarConexaoDB();
+
+			database.setPreparedStatement(database.getConnection().prepareStatement(codigoSQL));
+
+			database.getPreparedStatement().setString(1, funcoes.getNome());
+
+			LinhasAfetadas = database.getPreparedStatement().executeUpdate();
+
+			System.out.println(
+					String.format("public class FuncoesFabricaDAO TABELA: [Funcoes] - NOME: [%s] - SALVAR: [%s] [OK]",
+							funcoes.getNome(), LinhasAfetadas));
+
+			retornoBool = true;
+
+		} catch (SQLException ex) {
+
+			System.out.println(String.format(
+					"public class FuncoesFabricaDAO TABELA: [Funcoes] - NOME: [%s] - SALVAR: [%s] [TRY ERRO]\n%s",
+					funcoes.getNome(), LinhasAfetadas, ex.getMessage()));
+
+		}
+
+		return retornoBool;
+	}
+
+	private ResultSet listarDadosFuncoes(String nome) {
 
 		String querrySQL = "";
 		querrySQL += ("SELECT ");
@@ -296,5 +201,85 @@ public class FuncoesFabricaDAO {
 			}
 		}
 	}
+
+	private ObservableList<Funcoes> listarDadosOLFuncoes(String nome) {
+
+		ObservableList<Funcoes> retornoObservableList = FXCollections.observableArrayList();
+
+		int LinhasAfetadas = -9999;
+
+		String Listar = ("SELECT * FROM [Funcoes] WHERE [NOME] like ?;");
+		String Contar = ("SELECT Count(*) AS [COUNT] FROM [Funcoes] WHERE [NOME] like ?;");
+
+		try {
+
+			database.CriarConexaoDB();
+
+			database.setPreparedStatement(database.getConnection().prepareStatement(Contar));
+
+			database.getPreparedStatement().setString(1, ('%' + nome + '%'));
+
+			ResultSet resultSet = database.getPreparedStatement().executeQuery();
+
+			while (resultSet.next()) {
+				LinhasAfetadas = Integer.parseInt(resultSet.getString("COUNT"));
+			}
+
+			if (LinhasAfetadas >= 1) {
+
+				database.setPreparedStatement(database.getConnection().prepareStatement(Listar));
+
+				database.getPreparedStatement().setString(1, ('%' + nome + '%'));
+
+				resultSet = database.getPreparedStatement().executeQuery();
+
+				while (resultSet.next()) {
+
+					Integer CODIGO = resultSet.getInt(database.CAMPO_CODIGO);
+					String NOME = resultSet.getString(database.CAMPO_NOME);
+
+					Funcoes funcoes = new Funcoes();
+					funcoes.setCodigo(CODIGO);
+					funcoes.setNome(NOME);
+
+					retornoObservableList.add(funcoes);
+				}
+
+				System.out.println(String.format(
+						"public class FuncoesFabricaDAO ListarNomes TABELA: [Funcoes] - NOME: [%s] - TOTAL: [%s]", nome,
+						Integer.toString(LinhasAfetadas)));
+
+			} else {
+
+				Funcoes funcoes = new Funcoes();
+				funcoes.setCodigo(0);
+				funcoes.setNome("...: SEM DADOS :...");
+
+				retornoObservableList.add(funcoes);
+
+				System.out.println(String.format(
+						"public class FuncoesFabricaDAO ListarNomes TABELA: [Funcoes] - NOME: [%s] - TOTAL: [%s]", nome,
+						Integer.toString(LinhasAfetadas)));
+
+			}
+
+		} catch (SQLException e) {
+
+			Funcoes funcoes = new Funcoes();
+			funcoes.setCodigo(0);
+			funcoes.setNome("...: SEM DADOS :...");
+
+			retornoObservableList.add(funcoes);
+
+			System.out.println(String.format(
+					"public class FuncoesFabricaDAO ListarNomes TABELA: [Funcoes] - NOME: [%s] - [SQLException TRY ERRO]: [%s]",
+					nome, Integer.toString(LinhasAfetadas)));
+
+		}
+
+		return (retornoObservableList);
+
+	}
+
 
 }

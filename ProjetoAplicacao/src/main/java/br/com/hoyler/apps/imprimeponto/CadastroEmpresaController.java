@@ -1,15 +1,22 @@
 package br.com.hoyler.apps.imprimeponto;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
+import org.jvfx.viewer.JasperViewerFX;
+
+import br.com.hoyler.apps.database.sqlite.Empresas;
+import br.com.hoyler.apps.database.sqlite.EmpresasFabricaDAO;
+import br.com.hoyler.apps.imagens.ImagensGetSet;
+import br.com.hoyler.apps.tools.CriarJanelaSalvarPDF;
+import br.com.hoyler.apps.tools.CriarMensagens;
+import br.com.hoyler.apps.tools.HyperlinkCreate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -17,16 +24,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-import br.com.hoyler.apps.database.sqlite.Empresas;
-import br.com.hoyler.apps.database.sqlite.EmpresasFabricaDAO;
-import br.com.hoyler.apps.imagens.ImagensGetSet;
-import br.com.hoyler.apps.tools.CriarJanelaSalvarPDF;
-import br.com.hoyler.apps.tools.CriarMensagens;
-import br.com.hoyler.apps.tools.HyperlinkCreate;
-import org.jvfx.viewer.JasperViewerFX;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -48,7 +51,7 @@ public class CadastroEmpresaController {
 	String CONFIRMAR = ("Confirmar");
 
 	String CadastroAntigo = "";
-
+    Empresas empresas = new Empresas();
 	ImagensGetSet imagensGetSet = new ImagensGetSet();
 	CadastroEmpresa cadastroEmpresa = new CadastroEmpresa();
 	EmpresasFabricaDAO empresasFabricaDAO = new EmpresasFabricaDAO();
@@ -176,11 +179,14 @@ public class CadastroEmpresaController {
 
 				if (resportaPergunta) {
 					boolean retornoBool = false;
-					String NOME = TextFieldNomeID.getText().toString();
-					String CNPJ = TextFieldCNPJID.getText().toString();
-					String ENDERECO = TextFieldEnderecoID.getText().toString();
+					
+ 
+					empresas.setNome(TextFieldNomeID.getText().toString());
+					empresas.setCnpj(TextFieldCNPJID.getText().toString());
+					empresas.setEndereco(TextFieldEnderecoID.getText().toString());
+		 
 
-					retornoBool = empresasFabricaDAO.UpdateEmpresasDados(CadastroAntigo, NOME, CNPJ, ENDERECO);
+					retornoBool = empresasFabricaDAO.updateNome(CadastroAntigo, empresas);
 
 					cadastroEmpresa.TextFieldListarID_setOnKeyReleased(TextFieldListarID, TableViewColaboradorID);
 
@@ -211,7 +217,7 @@ public class CadastroEmpresaController {
 						new CriarMensagens().MensagemErro("Erro ao Deletar", "Não Foi Possivel Deletar");
 					} else {
 						new CriarMensagens().MensagemInformacoes("Empresa Atualizado com SUCESSO",
-								NOME + "\n" + CNPJ + "\n" + ENDERECO);
+								empresas.getNome() + "\n" + empresas.getCnpj() + "\n" + empresas.getEndereco());
 					}
 
 					cadastroEmpresa.setFocusTextField(TextFieldListarID);
@@ -240,7 +246,7 @@ public class CadastroEmpresaController {
 
 					int CODIGO = Integer.parseInt(TextFieldCodigoID.getText().toString());
 
-					retornoBool = empresasFabricaDAO.DeletarCodigosTabelaEmpresas(CODIGO);
+					retornoBool = empresasFabricaDAO.deletarCodigos(CODIGO);
 
 					cadastroEmpresa.TextFieldListarID_setOnKeyReleased(TextFieldListarID, TableViewColaboradorID);
 
@@ -283,11 +289,12 @@ public class CadastroEmpresaController {
 
 				boolean retornoBool = false;
 
-				String NOME = TextFieldNomeID.getText().toString();
-				String CNPJ = TextFieldCNPJID.getText().toString();
-				String ENDERECO = TextFieldEnderecoID.getText().toString();
+				empresas.setNome(TextFieldNomeID.getText().toString());
+				empresas.setCnpj(TextFieldCNPJID.getText().toString());
+				empresas.setEndereco(TextFieldEnderecoID.getText().toString());
+	 
 
-				retornoBool = empresasFabricaDAO.SalvarEmpresasDados(NOME, CNPJ, ENDERECO);
+				retornoBool = empresasFabricaDAO.salvarDados(empresas);
 
 				cadastroEmpresa.TextFieldListarID_setOnKeyReleased(TextFieldListarID, TableViewColaboradorID);
 
@@ -317,7 +324,7 @@ public class CadastroEmpresaController {
 				} else {
 
 					new CriarMensagens().MensagemInformacoes("Empresa Salvo com SUCESSO",
-							NOME + "\n" + CNPJ + "\n" + ENDERECO);
+							empresas.getNome() + "\n" + empresas.getCnpj() + "\n" + empresas.getEndereco());
 
 				}
 
@@ -434,7 +441,7 @@ public class CadastroEmpresaController {
 
 			if (file != null) {
 
-				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(null));
+				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.listarDados(null));
 
 				try {
 
@@ -466,7 +473,7 @@ public class CadastroEmpresaController {
 
 			if (file != null) {
 
-				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(NOME));
+				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.listarDados(NOME));
 
 				try {
 
@@ -508,7 +515,7 @@ public class CadastroEmpresaController {
 
 			if (NOME.isEmpty()) {
 
-				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(null));
+				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.listarDados(null));
 
 				try {
 
@@ -538,7 +545,7 @@ public class CadastroEmpresaController {
 
 			} else {
 
-				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(NOME));
+				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.listarDados(NOME));
 
 				try {
 
@@ -581,7 +588,7 @@ public class CadastroEmpresaController {
 			try {
 				tempoInicio = System.currentTimeMillis();
 
-				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(null));
+				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.listarDados(null));
 
 				jasperReport = (JasperReport) JRLoader
 						.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimeEmpresas());
@@ -607,7 +614,7 @@ public class CadastroEmpresaController {
 
 				tempoInicio = System.currentTimeMillis();
 
-				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.ListarEmpresas(NOME));
+				jrResultSetDataSource = new JRResultSetDataSource(empresasFabricaDAO.listarDados(NOME));
 
 				jasperReport = (JasperReport) JRLoader
 						.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimeEmpresas());
@@ -695,10 +702,12 @@ public class CadastroEmpresaController {
 		imagensGetSet.setImageButtons(ButtonVisualizarID);
 		imagensGetSet.setImageButtons(ButtonSairID);
 
-		TableColumnCodigoID.setCellValueFactory(new PropertyValueFactory<Empresas, Integer>("CODIGO"));
-		TableColumnNomeID.setCellValueFactory(new PropertyValueFactory<Empresas, String>("NOME"));
-		TableColumnCNPJID.setCellValueFactory(new PropertyValueFactory<Empresas, String>("CPNJ"));
-		TableColumnEnderecoID.setCellValueFactory(new PropertyValueFactory<Empresas, String>("ENDERECO"));
+		Field[] fields = Empresas.class.getDeclaredFields();
+		
+		TableColumnCodigoID.setCellValueFactory(new PropertyValueFactory<Empresas, Integer>(fields[0].getName()));
+		TableColumnNomeID.setCellValueFactory(new PropertyValueFactory<Empresas, String>(fields[1].getName()));
+		TableColumnCNPJID.setCellValueFactory(new PropertyValueFactory<Empresas, String>(fields[2].getName()));
+		TableColumnEnderecoID.setCellValueFactory(new PropertyValueFactory<Empresas, String>(fields[3].getName()));
 
 		cadastroEmpresa.setOpacityTextFieldLeitura(TextFieldCodigoID);
 		cadastroEmpresa.setOpacityTextFieldLeitura(TextFieldNomeID);

@@ -2,22 +2,20 @@ package br.com.hoyler.apps.database.sqlite;
 
 public class Funcoes {
 
-	private int CODIGO;
-	private String NOME;
-
-	public int getCODIGO() {
-		return CODIGO;
+	public Funcoes() {}
+	private int codigo;
+	private String nome;
+	
+	public int getCodigo() {
+		return codigo;
 	}
-
-	public void setCODIGO(int cODIGO) {
-		CODIGO = cODIGO;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
-
-	public String getNOME() {
-		return NOME;
+	public String getNome() {
+		return nome;
 	}
-
-	public void setNOME(String nOME) {
-		NOME = nOME;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }
