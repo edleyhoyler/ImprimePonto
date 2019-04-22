@@ -2,6 +2,8 @@ package br.com.hoyler.apps.database.sqlite;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,9 +37,14 @@ public class FuncoesFabricaDAO {
 		return (salvarDadosFuncoes(funcoes));
 	}
 
-	public ResultSet listarDados(String nome) {
+	public ResultSet listarDados_ResultSet(String nome) {
 
 		return (listarDadosFuncoes(nome));
+	}
+
+	public List<Funcoes> listarDados_ListFuncoes(String nome) {
+
+		return (listarDadosFuncoes_(nome));
 	}
 
 	public ObservableList<Funcoes> listarDadosOL(String nome) {
@@ -189,6 +196,7 @@ public class FuncoesFabricaDAO {
 
 			return database.ExecutarSQL(querrySQL);
 		} else {
+
 			if (nome.isEmpty()) {
 
 				return database.ExecutarSQL(querrySQL);
@@ -199,6 +207,73 @@ public class FuncoesFabricaDAO {
 
 				return database.ExecutarSQL(querrySQL);
 			}
+		}
+	}
+
+	private List<Funcoes> listarDadosFuncoes_(String nome) {
+
+		String querrySQL = "";
+		querrySQL += ("SELECT ");
+		querrySQL += ("[F].[CODIGO], ");
+		querrySQL += ("[F].[NOME] ");
+		querrySQL += ("FROM [Funcoes] [F] ");
+
+		
+
+		List<Funcoes> list = new ArrayList<>();
+		
+
+
+		if (nome == null || nome.isEmpty()) {
+			ResultSet resultSet = database.ExecutarSQL(querrySQL);
+			try {
+				while (resultSet.next()) {
+					Funcoes funcoes = new Funcoes();
+					funcoes.setCodigo((int)resultSet.getInt(1));
+					funcoes.setNome(resultSet.getString(2));
+					
+					list.add(funcoes);
+					System.out.println(resultSet.getInt(1) + " - " + resultSet.getString(2));
+				}
+			} catch (SQLException e) {
+				System.out.println("Erro xp1");
+				e.printStackTrace();
+			}
+			
+			return list;
+		} else {
+			
+	 
+			querrySQL += ("WHERE [F].[NOME] = ('" + nome + "');");
+			ResultSet resultSet = database.ExecutarSQL(querrySQL);
+			try {
+				while (resultSet.next()) {
+					Funcoes funcoes = new Funcoes();
+					funcoes.setCodigo((int)resultSet.getInt(1));
+					funcoes.setNome(resultSet.getString(2));
+					
+					list.add(funcoes);
+					System.out.println(resultSet.getInt(1) + " - " + resultSet.getString(2));
+				}
+			} catch (SQLException e) {
+				System.out.println("Erro xp2");
+				e.printStackTrace();
+			}
+		
+			return list;
+		/*
+			if (nome.isEmpty()) {
+
+				return database.ExecutarSQL(querrySQL);
+
+			} else {
+
+				querrySQL += ("WHERE [F].[NOME] = ('" + nome + "');");
+
+				return database.ExecutarSQL(querrySQL);
+			}
+			
+			*/
 		}
 	}
 
@@ -280,6 +355,5 @@ public class FuncoesFabricaDAO {
 		return (retornoObservableList);
 
 	}
-
 
 }

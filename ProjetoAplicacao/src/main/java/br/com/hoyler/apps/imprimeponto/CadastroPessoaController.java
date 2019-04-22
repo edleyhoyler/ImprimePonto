@@ -6,9 +6,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
-
 import org.jvfx.viewer.JasperViewerFX;
-
 import br.com.hoyler.apps.database.sqlite.Pessoas;
 import br.com.hoyler.apps.database.sqlite.PessoasFabricaDAO;
 import br.com.hoyler.apps.imagens.ImagensGetSet;
