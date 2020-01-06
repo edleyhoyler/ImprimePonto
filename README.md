@@ -3,7 +3,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/edleyhoyler/ImprimePonto.svg?style=flat-square)](https://github.com/edleyhoyler/ImprimePonto/issues)
 [![GitHub license](https://img.shields.io/github/license/edleyhoyler/ImprimePonto.svg?style=flat-square)](https://github.com/edleyhoyler/ImprimePonto/blob/master/README.md)
 -------
-# ImprimePonto
+# Imprime Ponto
 Projeto Imprime Folha de Ponto para Funcionários
 
 ![ImprimePontoWindows.png](https://i.imgur.com/Dt7dHFU.png)
@@ -11,11 +11,14 @@ Projeto Imprime Folha de Ponto para Funcionários
 ![ImprimePontoLinux.png](https://i.imgur.com/VyoxBin.png)
 
 # Downloads
-| Aplicativo          | Release | Extenção | Link                                                                                                            |
-| ------------------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| ImprimePonto        | 1.0.0.7 | exe      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.7/ImprimePontoRelease1.0.0.7.exe)|
-| ImprimePonto        | 1.0.0.7 | zip      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.7/ImprimePontoRelease1.0.0.7.zip)|
-| ImprimePonto        | 1.0.0.7 | rar      | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.7/ImprimePontoRelease1.0.0.7.rar)|
+| Aplicativo          | Release | Extenção | Com JRE | Link                                                                                                                         |
+| ------------------- | ------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| ImprimePonto        | 1.0.0.8 | exe      | sim     | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.8/ImprimePontoRelease1.0.0.8.com.Java.JRE.exe)|
+| ImprimePonto        | 1.0.0.8 | zip      | sim     | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.8/ImprimePontoRelease1.0.0.8.com.Java.JRE.zip)|
+| ImprimePonto        | 1.0.0.8 | rar      | sim     | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.8/ImprimePontoRelease1.0.0.8.com.Java.JRE.rar)|
+| ImprimePonto        | 1.0.0.8 | exe      | não     | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.8/ImprimePontoRelease1.0.0.8.sem.Java.JRE.exe)|
+| ImprimePonto        | 1.0.0.8 | zip      | não     | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.8/ImprimePontoRelease1.0.0.8.sem.Java.JRE.zip)|
+| ImprimePonto        | 1.0.0.8 | rar      | não     | [Download](https://github.com/edleyhoyler/ImprimePonto/releases/download/1.0.0.8/ImprimePontoRelease1.0.0.8.sem.Java.JRE.rar)|
 
 # Características
 *   Relatório com pre-Visualizações
@@ -55,7 +58,7 @@ Ementa: RECURSO DE REVISTA - PRELIMINAR DE NULIDADE DO ACÓRDÃO REGIONAL POR NE
 -------
 MIT License
 
-Copyright (c) 2018 edleyhoyler
+Copyright (c) 2015-2020 HOYLER Tecnologia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

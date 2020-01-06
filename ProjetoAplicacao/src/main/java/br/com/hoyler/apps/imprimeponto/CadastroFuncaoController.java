@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+
 import org.jvfx.viewer.JasperViewerFX;
+
 import br.com.hoyler.apps.database.sqlite.Funcoes;
 import br.com.hoyler.apps.database.sqlite.FuncoesFabricaDAO;
 import br.com.hoyler.apps.imagens.ImagensGetSet;
@@ -29,7 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -37,7 +36,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.type.OrientationEnum;
 import net.sf.jasperreports.engine.util.JRLoader;
 
@@ -552,18 +550,13 @@ public class CadastroFuncaoController {
 			try {
 				tempoInicio = System.currentTimeMillis();
 
-				ProgressBarID.setProgress(1);
-				ProgressBarID.setVisible(true);
-
-				List<Funcoes> funcoesLista = funcoesFabricaDAO.listarDados_ListFuncoes(null);
-
-				JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(funcoesLista);
+				jrResultSetDataSource = new JRResultSetDataSource(funcoesFabricaDAO.listarDados_ResultSet(null));
 
 				ProgressBarID.setProgress(25);
 				jasperReport = (JasperReport) JRLoader
 						.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimeFuncoes());
 
-				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrBeanCollectionDataSource);
+				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 				ProgressBarID.setProgress(75);
 
 				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Funções",
@@ -594,20 +587,11 @@ public class CadastroFuncaoController {
 				jrResultSetDataSource = new JRResultSetDataSource(funcoesFabricaDAO.listarDados_ResultSet(NOME));
 				ProgressBarID.setProgress(25);
 
-				List<Funcoes> funcoesLista = funcoesFabricaDAO.listarDados_ListFuncoes(NOME);
-
-				// JRDataSource jrBeanCollectionDataSource = new
-				// JRBeanCollectionDataSource(funcoesLista);
-
-				/* Map to hold Jasper report Parameters */
-				HashMap<String, Object> parameters = new HashMap<String, Object>();
-				parameters.put("Funcoes", funcoesLista);
-
 				jasperReport = (JasperReport) JRLoader
 						.loadObject(new br.com.hoyler.apps.reports.Relatorios().getRelatorioImprimeFuncoes());
 				ProgressBarID.setProgress(50);
-
-				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+				
+				jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrResultSetDataSource);
 				ProgressBarID.setProgress(75);
 
 				new JasperViewerFX((Stage) vBox.getScene().getWindow()).viewReport("Relatorios Imprime Funções",

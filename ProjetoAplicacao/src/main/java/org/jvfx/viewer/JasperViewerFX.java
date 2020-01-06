@@ -58,6 +58,7 @@ public class JasperViewerFX {
     
     public JasperViewerFX(Stage owner) {
         dialog = new Stage();
+        dialog.setMaximized(true);
         dialog.initModality(Modality.WINDOW_MODAL);
         dialog.initOwner(owner);
         dialog.setScene(createScene());
@@ -114,12 +115,12 @@ public class JasperViewerFX {
                 int p = Integer.parseInt(txtPage.getText());
                 setCurrentPage((p > 0 && p <= reportPages) ? p : 1);
             } catch (NumberFormatException e) {
-                new Alert(Alert.AlertType.WARNING, "Invalid number", ButtonType.OK).show();
+                new Alert(Alert.AlertType.WARNING, "Número Inválido", ButtonType.OK).show();
             }
         });
         
         lblReportPages = new Label("/ 1");
-        bottomLabel = new Label("Page 1 of 1");
+        bottomLabel = new Label("Página 1 de 1");
         
         HBox menu = new HBox(5);
         menu.setAlignment(Pos.CENTER);
@@ -294,7 +295,7 @@ public class JasperViewerFX {
             if(page > 0 && page <= reportPages) {
                 currentPage.set(page);
                 txtPage.setText(Integer.toString(page));
-                bottomLabel.setText(String.format("Page %s of %s",(Integer.toString(page)),(Integer.toString(reportPages))));
+                bottomLabel.setText(String.format("Página %s de %s",(Integer.toString(page)),(Integer.toString(reportPages))));
                 if (page == 1) {
                     backPage.setDisable(true);
                     firstPage.setDisable(true);
