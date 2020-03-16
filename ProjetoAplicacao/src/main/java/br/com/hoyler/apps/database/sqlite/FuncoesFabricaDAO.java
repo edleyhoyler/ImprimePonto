@@ -229,7 +229,7 @@ public class FuncoesFabricaDAO {
 			try {
 				while (resultSet.next()) {
 					Funcoes funcoes = new Funcoes();
-					funcoes.setCodigo((int)resultSet.getInt(1));
+					funcoes.setCodigo(resultSet.getInt(1));
 					funcoes.setNome(resultSet.getString(2));
 					
 					list.add(funcoes);
@@ -249,7 +249,7 @@ public class FuncoesFabricaDAO {
 			try {
 				while (resultSet.next()) {
 					Funcoes funcoes = new Funcoes();
-					funcoes.setCodigo((int)resultSet.getInt(1));
+					funcoes.setCodigo(resultSet.getInt(1));
 					funcoes.setNome(resultSet.getString(2));
 					
 					list.add(funcoes);

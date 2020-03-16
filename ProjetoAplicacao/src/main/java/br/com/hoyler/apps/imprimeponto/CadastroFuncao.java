@@ -59,6 +59,7 @@ public class CadastroFuncao {
 	public void TextFieldListarID_setOnKeyReleased(TextField textField, TableView<Funcoes> tableView) {
 
 		textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			@Override
 			public void handle(KeyEvent ke) {
 
 				String Consulta = textField.getText().toString();
